@@ -1,0 +1,665 @@
+{
+  "$schema" : "http://json-schema.org/draft-07/schema#",
+  "definitions" : {
+    "Agreement" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : [ "string", "null" ]
+        },
+        "marketplace" : {
+          "$ref" : "#/definitions/Marketplace-nullable"
+        },
+        "title" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "Capabilities-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "cart" : {
+          "$ref" : "#/definitions/ValidationCapabilities-nullable"
+        },
+        "inquiring" : {
+          "$ref" : "#/definitions/ValidationCapabilities-nullable"
+        },
+        "ppu" : {
+          "$ref" : "#/definitions/PpuCapabilities-nullable"
+        },
+        "resevation" : {
+          "$ref" : "#/definitions/ReservationCapabilities-nullable"
+        }
+      }
+    },
+    "CommonEntity" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : [ "string", "null" ]
+        },
+        "name" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "CommonEntity-nullable" : {
+      "anyOf" : [ {
+        "type" : "null"
+      }, {
+        "$ref" : "#/definitions/CommonEntity"
+      } ]
+    },
+    "Configurations-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "requiresResellerInformation" : {
+          "type" : [ "boolean", "null" ]
+        },
+        "suspendResumeSupported" : {
+          "type" : [ "boolean", "null" ]
+        }
+      }
+    },
+    "Connection-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "id" : {
+          "type" : [ "string", "null" ]
+        },
+        "type" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "Contact-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "email" : {
+          "type" : [ "string", "null" ]
+        },
+        "first_name" : {
+          "type" : [ "string", "null" ]
+        },
+        "last_name" : {
+          "type" : [ "string", "null" ]
+        },
+        "phone_number" : {
+          "$ref" : "#/definitions/PhoneNumber-nullable"
+        }
+      }
+    },
+    "ContactInfo-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "address_line1" : {
+          "type" : [ "string", "null" ]
+        },
+        "address_line2" : {
+          "type" : [ "string", "null" ]
+        },
+        "city" : {
+          "type" : [ "string", "null" ]
+        },
+        "contact" : {
+          "$ref" : "#/definitions/Contact-nullable"
+        },
+        "country" : {
+          "type" : [ "string", "null" ]
+        },
+        "postal_code" : {
+          "type" : [ "string", "null" ]
+        },
+        "state" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "CustomerUiSettings-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "description" : {
+          "type" : [ "string", "null" ]
+        },
+        "documents" : {
+          "$ref" : "#/definitions/Links-nullable"
+        },
+        "downloadLinks" : {
+          "$ref" : "#/definitions/Links-nullable"
+        },
+        "gettingStarted" : {
+          "type" : [ "string", "null" ]
+        },
+        "languages" : {
+          "$ref" : "#/definitions/CommonEntity-nullable"
+        },
+        "provisioningMessage" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "Event-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "at" : {
+          "type" : [ "string", "null" ]
+        },
+        "by" : {
+          "$ref" : "#/definitions/User-nullable"
+        }
+      }
+    },
+    "Events-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "accepted" : {
+          "$ref" : "#/definitions/Event-nullable"
+        },
+        "closed" : {
+          "$ref" : "#/definitions/Event-nullable"
+        },
+        "created" : {
+          "$ref" : "#/definitions/Event-nullable"
+        },
+        "deleted" : {
+          "$ref" : "#/definitions/Event-nullable"
+        },
+        "inquiring" : {
+          "$ref" : "#/definitions/Event-nullable"
+        },
+        "last_reported" : {
+          "$ref" : "#/definitions/Event-nullable"
+        },
+        "pending" : {
+          "$ref" : "#/definitions/Event-nullable"
+        },
+        "rejected" : {
+          "$ref" : "#/definitions/Event-nullable"
+        },
+        "resolved" : {
+          "$ref" : "#/definitions/Event-nullable"
+        },
+        "submitted" : {
+          "$ref" : "#/definitions/Event-nullable"
+        },
+        "updated" : {
+          "$ref" : "#/definitions/Event-nullable"
+        },
+        "uploaded" : {
+          "$ref" : "#/definitions/Event-nullable"
+        }
+      }
+    },
+    "ExtensionStatus-nullable" : {
+      "type" : [ "string", "null" ],
+      "enum" : [ "DRAFT", "SUCCESS", "PUBLISHED", "UNRESTRICTED" ]
+    },
+    "Extensions-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "icon" : {
+          "type" : [ "string", "null" ]
+        },
+        "id" : {
+          "type" : [ "string", "null" ]
+        },
+        "name" : {
+          "type" : [ "string", "null" ]
+        },
+        "status" : {
+          "$ref" : "#/definitions/ExtensionStatus-nullable"
+        }
+      }
+    },
+    "Hub-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "company" : {
+          "$ref" : "#/definitions/User-nullable"
+        },
+        "description" : {
+          "type" : [ "string", "null" ]
+        },
+        "events" : {
+          "$ref" : "#/definitions/Events-nullable"
+        },
+        "id" : {
+          "type" : [ "string", "null" ]
+        },
+        "name" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "Links-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "title" : {
+          "type" : [ "string", "null" ]
+        },
+        "url" : {
+          "type" : [ "string", "null" ]
+        },
+        "visibleFor" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "Map(String,Object)-nullable" : {
+      "type" : [ "object", "null" ]
+    },
+    "Map(String,String)-nullable" : {
+      "type" : [ "object", "null" ]
+    },
+    "Marketplace-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "id" : {
+          "type" : [ "string", "null" ]
+        },
+        "name" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "Media-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "id" : {
+          "type" : [ "string", "null" ]
+        },
+        "thumbnail" : {
+          "type" : [ "string", "null" ]
+        },
+        "type" : {
+          "type" : [ "string", "null" ]
+        },
+        "url" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "PhoneNumber-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "area_code" : {
+          "type" : [ "string", "null" ]
+        },
+        "country_code" : {
+          "type" : [ "string", "null" ]
+        },
+        "extension" : {
+          "type" : [ "string", "null" ]
+        },
+        "phone_number" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "PpuCapabilities-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "dynamic" : {
+          "type" : [ "boolean", "null" ]
+        },
+        "future" : {
+          "type" : [ "boolean", "null" ]
+        },
+        "predictive" : {
+          "type" : [ "boolean", "null" ]
+        },
+        "schema" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "Product-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "capabilities" : {
+          "$ref" : "#/definitions/Capabilities-nullable"
+        },
+        "category" : {
+          "$ref" : "#/definitions/CommonEntity-nullable"
+        },
+        "changesDescription" : {
+          "type" : [ "string", "null" ]
+        },
+        "configurations" : {
+          "$ref" : "#/definitions/Configurations-nullable"
+        },
+        "customerUiSettings" : {
+          "$ref" : "#/definitions/CustomerUiSettings-nullable"
+        },
+        "detailedDescription" : {
+          "type" : [ "string", "null" ]
+        },
+        "endOfSaleNotes" : {
+          "type" : [ "string", "null" ]
+        },
+        "events" : {
+          "$ref" : "#/definitions/Events-nullable"
+        },
+        "extensions" : {
+          "$ref" : "#/definitions/Extensions-nullable"
+        },
+        "icon" : {
+          "type" : [ "string", "null" ]
+        },
+        "id" : {
+          "type" : [ "string", "null" ]
+        },
+        "latest" : {
+          "type" : [ "string", "null" ]
+        },
+        "media" : {
+          "$ref" : "#/definitions/Media-nullable"
+        },
+        "name" : {
+          "type" : [ "string", "null" ]
+        },
+        "owner" : {
+          "$ref" : "#/definitions/CommonEntity-nullable"
+        },
+        "publicField" : {
+          "type" : [ "string", "null" ]
+        },
+        "publishedAt" : {
+          "type" : [ "string", "null" ]
+        },
+        "replacement" : {
+          "$ref" : "#/definitions/Extensions-nullable"
+        },
+        "shortDescription" : {
+          "type" : [ "string", "null" ]
+        },
+        "sourcing" : {
+          "type" : [ "array", "null" ],
+          "items" : {
+            "$ref" : "#/definitions/Agreement"
+          }
+        },
+        "stats" : {
+          "$ref" : "#/definitions/Stats-nullable"
+        },
+        "status" : {
+          "type" : [ "string", "null" ]
+        },
+        "usageRule" : {
+          "$ref" : "#/definitions/UsageRule-nullable"
+        },
+        "versions" : {
+          "type" : [ "string", "null" ]
+        },
+        "visibility" : {
+          "$ref" : "#/definitions/Visibility-nullable"
+        }
+      }
+    },
+    "RequestParam" : {
+      "type" : "object",
+      "properties" : {
+        "constraints" : {
+          "$ref" : "#/definitions/RequestParamConstraints-nullable"
+        },
+        "description" : {
+          "type" : [ "string", "null" ]
+        },
+        "id" : {
+          "type" : [ "string", "null" ]
+        },
+        "phase" : {
+          "type" : [ "string", "null" ]
+        },
+        "scope" : {
+          "type" : [ "string", "null" ]
+        },
+        "structured_value" : {
+          "$ref" : "#/definitions/Map(String,Object)-nullable"
+        },
+        "title" : {
+          "type" : [ "string", "null" ]
+        },
+        "type" : {
+          "type" : [ "string", "null" ]
+        },
+        "value" : {
+          "type" : [ "string", "null" ]
+        },
+        "value_error" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "RequestParamConstraints-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "default" : {
+          "$ref" : "#/definitions/Map(String,String)-nullable"
+        },
+        "hidden" : {
+          "type" : [ "boolean", "null" ]
+        },
+        "hint" : {
+          "type" : [ "string", "null" ]
+        },
+        "meta" : {
+          "$ref" : "#/definitions/Map(String,String)-nullable"
+        },
+        "placeholder" : {
+          "type" : [ "string", "null" ]
+        },
+        "reconciliation" : {
+          "type" : [ "boolean", "null" ]
+        },
+        "required" : {
+          "type" : [ "boolean", "null" ]
+        },
+        "shared" : {
+          "type" : [ "boolean", "null" ]
+        },
+        "unique" : {
+          "type" : [ "boolean", "null" ]
+        }
+      }
+    },
+    "ReservationCapabilities-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "consumption" : {
+          "type" : [ "boolean", "null" ]
+        }
+      }
+    },
+    "Stats-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "versions" : {
+          "type" : [ "integer", "null" ]
+        }
+      }
+    },
+    "TierAccount-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "contact_info" : {
+          "$ref" : "#/definitions/ContactInfo-nullable"
+        },
+        "events" : {
+          "$ref" : "#/definitions/Events-nullable"
+        },
+        "external_id" : {
+          "type" : [ "string", "null" ]
+        },
+        "external_uid" : {
+          "type" : [ "string", "null" ]
+        },
+        "hub" : {
+          "$ref" : "#/definitions/Hub-nullable"
+        },
+        "id" : {
+          "type" : [ "string", "null" ]
+        },
+        "name" : {
+          "type" : [ "string", "null" ]
+        },
+        "owner" : {
+          "$ref" : "#/definitions/TierAccount-nullable"
+        },
+        "parent" : {
+          "$ref" : "#/definitions/TierAccount-nullable"
+        },
+        "tax_id" : {
+          "type" : [ "string", "null" ]
+        },
+        "type" : {
+          "type" : [ "string", "null" ]
+        },
+        "version" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "TierConfig-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "account" : {
+          "$ref" : "#/definitions/TierAccount-nullable"
+        },
+        "connection" : {
+          "$ref" : "#/definitions/Connection-nullable"
+        },
+        "events" : {
+          "$ref" : "#/definitions/Event-nullable"
+        },
+        "id" : {
+          "type" : [ "string", "null" ]
+        },
+        "marketplace" : {
+          "$ref" : "#/definitions/Marketplace-nullable"
+        },
+        "name" : {
+          "type" : [ "string", "null" ]
+        },
+        "params" : {
+          "type" : [ "array", "null" ],
+          "items" : {
+            "$ref" : "#/definitions/RequestParam"
+          }
+        },
+        "product" : {
+          "$ref" : "#/definitions/Product-nullable"
+        },
+        "status" : {
+          "type" : [ "string", "null" ]
+        },
+        "template" : {
+          "$ref" : "#/definitions/User-nullable"
+        },
+        "tierLevel" : {
+          "type" : [ "string", "null" ]
+        },
+        "tiers" : {
+          "$ref" : "#/definitions/Tiers-nullable"
+        }
+      }
+    },
+    "Tiers-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "tier1" : {
+          "$ref" : "#/definitions/TierAccount-nullable"
+        },
+        "tier2" : {
+          "$ref" : "#/definitions/TierAccount-nullable"
+        }
+      }
+    },
+    "UsageRule-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "enabled" : {
+          "type" : [ "boolean", "null" ]
+        },
+        "providers" : {
+          "type" : [ "array", "null" ],
+          "items" : {
+            "$ref" : "#/definitions/CommonEntity"
+          }
+        }
+      }
+    },
+    "User-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "id" : {
+          "type" : [ "string", "null" ]
+        },
+        "name" : {
+          "type" : [ "string", "null" ]
+        }
+      }
+    },
+    "ValidationCapabilities-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "validation" : {
+          "type" : [ "boolean", "null" ]
+        }
+      }
+    },
+    "Visibility-nullable" : {
+      "type" : [ "object", "null" ],
+      "properties" : {
+        "catalog" : {
+          "type" : [ "boolean", "null" ]
+        },
+        "listing" : {
+          "type" : [ "boolean", "null" ]
+        },
+        "owner" : {
+          "type" : [ "boolean", "null" ]
+        },
+        "syndication" : {
+          "type" : [ "boolean", "null" ]
+        }
+      }
+    }
+  },
+  "type" : "object",
+  "properties" : {
+    "asignee" : {
+      "$ref" : "#/definitions/User-nullable"
+    },
+    "configuration" : {
+      "$ref" : "#/definitions/TierConfig-nullable"
+    },
+    "environment" : {
+      "type" : [ "string", "null" ]
+    },
+    "events" : {
+      "$ref" : "#/definitions/Events-nullable"
+    },
+    "id" : {
+      "type" : [ "string", "null" ]
+    },
+    "params" : {
+      "type" : [ "array", "null" ],
+      "items" : {
+        "$ref" : "#/definitions/RequestParam"
+      }
+    },
+    "status" : {
+      "type" : [ "string", "null" ]
+    },
+    "template" : {
+      "$ref" : "#/definitions/User-nullable"
+    },
+    "tiers" : {
+      "$ref" : "#/definitions/Tiers-nullable"
+    },
+    "type" : {
+      "type" : [ "string", "null" ]
+    }
+  }
+}
