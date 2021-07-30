@@ -1,4 +1,4 @@
-name: Build and test MuleSoft extension
+name: Build and test Dell Boomi extension
 
 on:
   push:
