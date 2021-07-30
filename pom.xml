@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.cloudblue</groupId>
+    <artifactId>connect-boomi-extension</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <repositories>
+        <repository>
+            <id>boomisdk</id>
+            <name>Connector SDK Repository</name>
+            <url>https://boomisdk.s3.amazonaws.com/releases</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.assembly.plugin.version>2.6</maven.assembly.plugin.version>
+        <connector.sdk.version>2.10.0</connector.sdk.version>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.boomi.connsdk</groupId>
+                <artifactId>connector-sdk-api</artifactId>
+                <version>${connector.sdk.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.boomi.connsdk</groupId>
+                <artifactId>connector-sdk-util</artifactId>
+                <version>${connector.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.boomi.connsdk</groupId>
+                <artifactId>connector-sdk-rest</artifactId>
+                <version>${connector.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.boomi.connsdk</groupId>
+                <artifactId>connector-sdk-ws</artifactId>
+                <version>${connector.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.boomi.connsdk</groupId>
+                <artifactId>connector-sdk-test-util</artifactId>
+                <version>${connector.sdk.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.boomi.util</groupId>
+                <artifactId>boomi-util</artifactId>
+                <version>2.3.8</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.boomi.connsdk</groupId>
+            <artifactId>connector-sdk-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.boomi.connsdk</groupId>
+            <artifactId>connector-sdk-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.boomi.connsdk</groupId>
+            <artifactId>connector-sdk-rest</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.boomi.util</groupId>
+            <artifactId>boomi-json-util</artifactId>
+            <version>1.1.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.4</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven.assembly.plugin.version}</version>
+                <configuration combine.self="override">
+                    <descriptors>
+                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
