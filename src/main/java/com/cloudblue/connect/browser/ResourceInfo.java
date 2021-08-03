@@ -1,15 +1,16 @@
 package com.cloudblue.connect.browser;
 
 import com.boomi.connector.api.ObjectType;
+import com.boomi.connector.api.OperationType;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class ResourceInfo {
 
     private String id;
     private String name;
-    private Map<String, OperationSchemaInfo> operationSchemas = new HashMap<>();
+    private EnumMap<OperationType, OperationSchemaInfo> operationSchemas = new EnumMap<>(OperationType.class);
 
     public String getId() {
         return id;
@@ -19,7 +20,7 @@ public class ResourceInfo {
         return name;
     }
 
-    public Map<String, OperationSchemaInfo> getOperationSchemas() {
+    public Map<OperationType, OperationSchemaInfo> getOperationSchemas() {
         return operationSchemas;
     }
 
@@ -33,8 +34,8 @@ public class ResourceInfo {
         return this;
     }
 
-    public ResourceInfo operationSchema(String operationName, OperationSchemaInfo schemaInfo) {
-        this.operationSchemas.put(operationName, schemaInfo);
+    public ResourceInfo operationSchema(OperationType operationType, OperationSchemaInfo schemaInfo) {
+        this.operationSchemas.put(operationType, schemaInfo);
         return this;
     }
 
