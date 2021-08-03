@@ -5,8 +5,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cloudblue</groupId>
-    <artifactId>connect-boomi-extension</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>connect-extension-boomi</artifactId>
+    <version>24.0-SNAPSHOT</version>
 
     <repositories>
         <repository>
@@ -25,7 +25,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
         <jacoco.version>0.8.2</jacoco.version>
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.language>java</sonar.language>
-        <sonar.projectKey>connect-boomi-extension</sonar.projectKey>
+        <sonar.projectKey>connect-extension-boomi</sonar.projectKey>
         <sonar.organization>cloudbluesonarcube</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
