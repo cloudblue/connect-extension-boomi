@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenericConnectorDescriptor>
-    <!-- define connection properties and operations here -->
+    <description>Connect Connector</description>
+    <field id="url" label="API Service Endpoint" type="string">
+        <helpText>
+            Enter the URL for the Connect REST API service endpoint.
+        </helpText>
+        <defaultValue>https://api.connect.cloud.im/public/v1</defaultValue>
+    </field>
+    <field id="customAuthCredentials" label="API Token" type="password">
+        <helpText>
+            Enter API token for the Connect REST API service endpoint.
+        </helpText>
+    </field>
+
+    <operation types="EXECUTE" customTypeId="GET" customTypeLabel="Get">
+        <field id="httpMethod" type="string"  overrideable="false">
+            <defaultValue>GET</defaultValue>
+        </field>
+    </operation>
 </GenericConnectorDescriptor>
