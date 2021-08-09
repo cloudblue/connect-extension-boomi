@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenericConnector sdkApiVersion="2.10.0">
-    <connectorClassName><!--name of the connector implementation class--></connectorClassName>
+    <connectorClassName>com.cloudblue.connect.ConnectConnector</connectorClassName>
 </GenericConnector>

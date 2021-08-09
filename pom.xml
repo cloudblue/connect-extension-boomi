@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cloudblue</groupId>
     <artifactId>connect-extension-boomi</artifactId>
-    <version>24.0-SNAPSHOT</version>
+    <version>24.0.0-SNAPSHOT</version>
 
     <repositories>
         <repository>
@@ -45,6 +47,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
             </dependency>
             <dependency>
                 <groupId>com.boomi.connsdk</groupId>
+                <artifactId>connector-sdk-model</artifactId>
+                <version>${connector.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.boomi.connsdk</groupId>
                 <artifactId>connector-sdk-rest</artifactId>
                 <version>${connector.sdk.version}</version>
             </dependency>
@@ -79,6 +86,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
         </dependency>
         <dependency>
             <groupId>com.boomi.connsdk</groupId>
+            <artifactId>connector-sdk-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.boomi.connsdk</groupId>
             <artifactId>connector-sdk-rest</artifactId>
             <version>0.1</version>
         </dependency>
@@ -90,7 +101,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.12.4</version>
+            <version>2.5.3</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -106,7 +117,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
+            <artifactId>mockito-inline</artifactId>
             <version>3.11.2</version>
             <scope>test</scope>
         </dependency>

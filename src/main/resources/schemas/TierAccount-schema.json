@@ -1,194 +1,625 @@
 {
   "$schema" : "http://json-schema.org/draft-07/schema#",
-  "definitions" : {
-    "Contact-nullable" : {
-      "type" : [ "object", "null" ],
-      "properties" : {
-        "email" : {
-          "type" : [ "string", "null" ]
-        },
-        "first_name" : {
-          "type" : [ "string", "null" ]
-        },
-        "last_name" : {
-          "type" : [ "string", "null" ]
-        },
-        "phone_number" : {
-          "$ref" : "#/definitions/PhoneNumber-nullable"
-        }
-      }
-    },
-    "ContactInfo-nullable" : {
-      "type" : [ "object", "null" ],
-      "properties" : {
-        "address_line1" : {
-          "type" : [ "string", "null" ]
-        },
-        "address_line2" : {
-          "type" : [ "string", "null" ]
-        },
-        "city" : {
-          "type" : [ "string", "null" ]
-        },
-        "contact" : {
-          "$ref" : "#/definitions/Contact-nullable"
-        },
-        "country" : {
-          "type" : [ "string", "null" ]
-        },
-        "postal_code" : {
-          "type" : [ "string", "null" ]
-        },
-        "state" : {
-          "type" : [ "string", "null" ]
-        }
-      }
-    },
-    "Event-nullable" : {
-      "type" : [ "object", "null" ],
-      "properties" : {
-        "at" : {
-          "type" : [ "string", "null" ]
-        },
-        "by" : {
-          "$ref" : "#/definitions/User-nullable"
-        }
-      }
-    },
-    "Events-nullable" : {
-      "type" : [ "object", "null" ],
-      "properties" : {
-        "accepted" : {
-          "$ref" : "#/definitions/Event-nullable"
-        },
-        "closed" : {
-          "$ref" : "#/definitions/Event-nullable"
-        },
-        "created" : {
-          "$ref" : "#/definitions/Event-nullable"
-        },
-        "deleted" : {
-          "$ref" : "#/definitions/Event-nullable"
-        },
-        "inquiring" : {
-          "$ref" : "#/definitions/Event-nullable"
-        },
-        "last_reported" : {
-          "$ref" : "#/definitions/Event-nullable"
-        },
-        "pending" : {
-          "$ref" : "#/definitions/Event-nullable"
-        },
-        "rejected" : {
-          "$ref" : "#/definitions/Event-nullable"
-        },
-        "resolved" : {
-          "$ref" : "#/definitions/Event-nullable"
-        },
-        "submitted" : {
-          "$ref" : "#/definitions/Event-nullable"
-        },
-        "updated" : {
-          "$ref" : "#/definitions/Event-nullable"
-        },
-        "uploaded" : {
-          "$ref" : "#/definitions/Event-nullable"
-        }
-      }
-    },
-    "Hub-nullable" : {
-      "type" : [ "object", "null" ],
-      "properties" : {
-        "company" : {
-          "$ref" : "#/definitions/User-nullable"
-        },
-        "description" : {
-          "type" : [ "string", "null" ]
-        },
-        "events" : {
-          "$ref" : "#/definitions/Events-nullable"
-        },
-        "id" : {
-          "type" : [ "string", "null" ]
-        },
-        "name" : {
-          "type" : [ "string", "null" ]
-        }
-      }
-    },
-    "PhoneNumber-nullable" : {
-      "type" : [ "object", "null" ],
-      "properties" : {
-        "area_code" : {
-          "type" : [ "string", "null" ]
-        },
-        "country_code" : {
-          "type" : [ "string", "null" ]
-        },
-        "extension" : {
-          "type" : [ "string", "null" ]
-        },
-        "phone_number" : {
-          "type" : [ "string", "null" ]
-        }
-      }
-    },
-    "TierAccount-nullable" : {
-      "anyOf" : [ {
-        "type" : "null"
-      }, {
-        "$ref" : "#"
-      } ]
-    },
-    "User-nullable" : {
-      "type" : [ "object", "null" ],
-      "properties" : {
-        "id" : {
-          "type" : [ "string", "null" ]
-        },
-        "name" : {
-          "type" : [ "string", "null" ]
-        }
-      }
-    }
-  },
   "type" : "object",
   "properties" : {
     "contact_info" : {
-      "$ref" : "#/definitions/ContactInfo-nullable"
+      "type" : "object",
+      "properties" : {
+        "address_line1" : {
+          "type" : "string"
+        },
+        "address_line2" : {
+          "type" : "string"
+        },
+        "city" : {
+          "type" : "string"
+        },
+        "contact" : {
+          "type" : "object",
+          "properties" : {
+            "email" : {
+              "type" : "string"
+            },
+            "first_name" : {
+              "type" : "string"
+            },
+            "last_name" : {
+              "type" : "string"
+            },
+            "phone_number" : {
+              "type" : "object",
+              "properties" : {
+                "area_code" : {
+                  "type" : "string"
+                },
+                "country_code" : {
+                  "type" : "string"
+                },
+                "extension" : {
+                  "type" : "string"
+                },
+                "phone_number" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "country" : {
+          "type" : "string"
+        },
+        "postal_code" : {
+          "type" : "string"
+        },
+        "state" : {
+          "type" : "string"
+        }
+      }
     },
     "events" : {
-      "$ref" : "#/definitions/Events-nullable"
+      "type" : "object",
+      "properties" : {
+        "accepted" : {
+          "type" : "object",
+          "properties" : {
+            "at" : {
+              "type" : "string"
+            },
+            "by" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string"
+                },
+                "name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "closed" : {
+          "type" : "object",
+          "properties" : {
+            "at" : {
+              "type" : "string"
+            },
+            "by" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string"
+                },
+                "name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "created" : {
+          "type" : "object",
+          "properties" : {
+            "at" : {
+              "type" : "string"
+            },
+            "by" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string"
+                },
+                "name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "deleted" : {
+          "type" : "object",
+          "properties" : {
+            "at" : {
+              "type" : "string"
+            },
+            "by" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string"
+                },
+                "name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "inquiring" : {
+          "type" : "object",
+          "properties" : {
+            "at" : {
+              "type" : "string"
+            },
+            "by" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string"
+                },
+                "name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "last_reported" : {
+          "type" : "object",
+          "properties" : {
+            "at" : {
+              "type" : "string"
+            },
+            "by" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string"
+                },
+                "name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "pending" : {
+          "type" : "object",
+          "properties" : {
+            "at" : {
+              "type" : "string"
+            },
+            "by" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string"
+                },
+                "name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "rejected" : {
+          "type" : "object",
+          "properties" : {
+            "at" : {
+              "type" : "string"
+            },
+            "by" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string"
+                },
+                "name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "resolved" : {
+          "type" : "object",
+          "properties" : {
+            "at" : {
+              "type" : "string"
+            },
+            "by" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string"
+                },
+                "name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "submitted" : {
+          "type" : "object",
+          "properties" : {
+            "at" : {
+              "type" : "string"
+            },
+            "by" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string"
+                },
+                "name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "updated" : {
+          "type" : "object",
+          "properties" : {
+            "at" : {
+              "type" : "string"
+            },
+            "by" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string"
+                },
+                "name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "uploaded" : {
+          "type" : "object",
+          "properties" : {
+            "at" : {
+              "type" : "string"
+            },
+            "by" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "string"
+                },
+                "name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "external_id" : {
-      "type" : [ "string", "null" ]
+      "type" : "string"
     },
     "external_uid" : {
-      "type" : [ "string", "null" ]
+      "type" : "string"
     },
     "hub" : {
-      "$ref" : "#/definitions/Hub-nullable"
+      "type" : "object",
+      "properties" : {
+        "company" : {
+          "type" : "object",
+          "properties" : {
+            "id" : {
+              "type" : "string"
+            },
+            "name" : {
+              "type" : "string"
+            }
+          }
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "events" : {
+          "type" : "object",
+          "properties" : {
+            "accepted" : {
+              "type" : "object",
+              "properties" : {
+                "at" : {
+                  "type" : "string"
+                },
+                "by" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "closed" : {
+              "type" : "object",
+              "properties" : {
+                "at" : {
+                  "type" : "string"
+                },
+                "by" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "created" : {
+              "type" : "object",
+              "properties" : {
+                "at" : {
+                  "type" : "string"
+                },
+                "by" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "deleted" : {
+              "type" : "object",
+              "properties" : {
+                "at" : {
+                  "type" : "string"
+                },
+                "by" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "inquiring" : {
+              "type" : "object",
+              "properties" : {
+                "at" : {
+                  "type" : "string"
+                },
+                "by" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "last_reported" : {
+              "type" : "object",
+              "properties" : {
+                "at" : {
+                  "type" : "string"
+                },
+                "by" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "pending" : {
+              "type" : "object",
+              "properties" : {
+                "at" : {
+                  "type" : "string"
+                },
+                "by" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "rejected" : {
+              "type" : "object",
+              "properties" : {
+                "at" : {
+                  "type" : "string"
+                },
+                "by" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "resolved" : {
+              "type" : "object",
+              "properties" : {
+                "at" : {
+                  "type" : "string"
+                },
+                "by" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "submitted" : {
+              "type" : "object",
+              "properties" : {
+                "at" : {
+                  "type" : "string"
+                },
+                "by" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "updated" : {
+              "type" : "object",
+              "properties" : {
+                "at" : {
+                  "type" : "string"
+                },
+                "by" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            },
+            "uploaded" : {
+              "type" : "object",
+              "properties" : {
+                "at" : {
+                  "type" : "string"
+                },
+                "by" : {
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "string"
+                    },
+                    "name" : {
+                      "type" : "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
     },
     "id" : {
-      "type" : [ "string", "null" ]
+      "type" : "string"
     },
     "name" : {
-      "type" : [ "string", "null" ]
+      "type" : "string"
     },
     "owner" : {
-      "$ref" : "#/definitions/TierAccount-nullable"
+      "type" : "object",
+      "properties" : {
+        "brand" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "external_id" : {
+          "type" : "string"
+        },
+        "headquarters" : {
+          "type" : "string"
+        },
+        "icon" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "overview" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string",
+          "enum" : [ "VENDOR", "PROVIDER" ]
+        },
+        "websites" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
     },
     "parent" : {
-      "$ref" : "#/definitions/TierAccount-nullable"
+      "type" : "object",
+      "properties" : {
+        "external_id" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
     },
     "tax_id" : {
-      "type" : [ "string", "null" ]
+      "type" : "string"
     },
     "type" : {
-      "type" : [ "string", "null" ]
+      "type" : "string"
     },
     "version" : {
-      "type" : [ "string", "null" ]
+      "type" : "string"
     }
   }
 }
