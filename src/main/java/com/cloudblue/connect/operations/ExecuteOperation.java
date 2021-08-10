@@ -8,6 +8,9 @@ import com.cloudblue.connect.browser.ResourceOperationType;
 import com.cloudblue.connect.browser.ResourceType;
 import com.cloudblue.connect.utils.JsonUtil;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ExecuteOperation extends RestOperation {
 
     public ExecuteOperation(RestOperationConnection connection) {
@@ -26,5 +29,18 @@ public class ExecuteOperation extends RestOperation {
         } else {
             return resourceType.getPath();
         }
+    }
+
+    @Override
+    protected Iterable<Map.Entry<String, String>> getHeaders(ObjectData data) {
+        Map<String, String> headers = new HashMap<>();
+
+        ResourceOperationType operationType = ResourceOperationType
+                .valueOf(getContext().getCustomOperationType().toUpperCase());
+        if (operationType == ResourceOperationType.CREATE) {
+            headers.put("Content-Type", "application/json");
+        }
+
+        return headers.entrySet();
     }
 }

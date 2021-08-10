@@ -14,8 +14,13 @@
     </field>
 
     <operation types="EXECUTE" customTypeId="GET" customTypeLabel="Get">
-        <field id="httpMethod" type="string"  overrideable="false">
+        <field id="httpMethod" type="string" overrideable="false">
             <defaultValue>GET</defaultValue>
+        </field>
+    </operation>
+    <operation types="EXECUTE" customTypeId="CREATE" customTypeLabel="Create">
+        <field id="httpMethod" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
         </field>
     </operation>
 </GenericConnectorDescriptor>

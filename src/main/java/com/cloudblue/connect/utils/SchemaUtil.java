@@ -24,7 +24,12 @@ public class SchemaUtil {
                                 new OperationSchemaInfo()
                                         .input(GET_RESOURCE_INPUT_SCHEMA)
                                         .output("Request-schema.json")
-                        )
+                        ).operationSchema(
+                                ResourceOperationType.CREATE,
+                                new OperationSchemaInfo()
+                                        .input("NewRequest-schema.json")
+                                        .output("Request-schema.json")
+                )
         );
         RESOURCE_INFO_MAP.put(
                 ResourceType.ASSET,

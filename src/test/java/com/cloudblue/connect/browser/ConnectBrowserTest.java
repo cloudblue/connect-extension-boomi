@@ -6,9 +6,10 @@ import com.boomi.connector.api.ObjectType;
 import com.boomi.connector.api.OperationType;
 
 import com.cloudblue.connect.utils.ConnectTestContext;
-
 import com.cloudblue.connect.utils.SchemaUtil;
+
 import org.junit.Test;
+
 import org.mockito.MockedStatic;
 
 import java.util.Arrays;
@@ -33,13 +34,13 @@ public class ConnectBrowserTest {
 
     @Test
     public void testExecuteOperationObjectTypes() {
-        when(context.getCustomOperationType()).thenReturn("CREATE");
+        when(context.getCustomOperationType()).thenReturn("LIST");
         List<ObjectType> types = browser.getObjectTypes().getTypes();
         assertEquals(0, types.size());
     }
 
     @Test
-    public void testExecuteOperationObjectDefinitions() {
+    public void testExecuteOperationObjectDefinitionsForGet() {
         when(context.getOperationType()).thenReturn(OperationType.EXECUTE);
         when(context.getCustomOperationType()).thenReturn("GET");
         ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
@@ -49,9 +50,19 @@ public class ConnectBrowserTest {
     }
 
     @Test
-    public void testGetOperationObjectDefinitions() {
-        when(context.getOperationType()).thenReturn(OperationType.GET);
+    public void testExecuteOperationObjectDefinitionsForCreate() {
+        when(context.getOperationType()).thenReturn(OperationType.EXECUTE);
         when(context.getCustomOperationType()).thenReturn("CREATE");
+        ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
+                "REQUEST", Arrays.asList(
+                        ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
+        assertEquals(2, objectDefinitions.getDefinitions().size());
+    }
+
+    @Test
+    public void testUpdateOperationObjectDefinitionsForCreate() {
+        when(context.getOperationType()).thenReturn(OperationType.UPDATE);
+        when(context.getCustomOperationType()).thenReturn("LIST");
         ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
                 "REQUEST", Arrays.asList(
                         ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
