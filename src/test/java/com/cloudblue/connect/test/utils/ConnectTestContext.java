@@ -1,4 +1,4 @@
-package com.cloudblue.connect.utils;
+package com.cloudblue.connect.test.utils;
 
 import com.boomi.connector.api.Connector;
 import com.boomi.connector.testutil.ConnectorTestContext;

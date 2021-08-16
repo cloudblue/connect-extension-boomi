@@ -1,8 +1,9 @@
 package com.cloudblue.connect.operations;
 
 import com.boomi.connector.api.ObjectData;
+
 import com.cloudblue.connect.ConnectConnection;
-import com.cloudblue.connect.utils.ConnectTestContext;
+import com.cloudblue.connect.test.utils.ConnectTestContext;
 
 import org.junit.Test;
 

@@ -5,7 +5,7 @@ import com.boomi.connector.api.ObjectDefinitions;
 import com.boomi.connector.api.ObjectType;
 import com.boomi.connector.api.OperationType;
 
-import com.cloudblue.connect.utils.ConnectTestContext;
+import com.cloudblue.connect.test.utils.ConnectTestContext;
 import com.cloudblue.connect.utils.SchemaUtil;
 
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class ConnectBrowserTest {
 
     @Test
     public void testExecuteOperationObjectTypes() {
-        when(context.getCustomOperationType()).thenReturn("LIST");
+        when(context.getCustomOperationType()).thenReturn("DELETE");
         List<ObjectType> types = browser.getObjectTypes().getTypes();
         assertEquals(0, types.size());
     }
@@ -62,7 +62,7 @@ public class ConnectBrowserTest {
     @Test
     public void testUpdateOperationObjectDefinitionsForCreate() {
         when(context.getOperationType()).thenReturn(OperationType.UPDATE);
-        when(context.getCustomOperationType()).thenReturn("LIST");
+        when(context.getCustomOperationType()).thenReturn("DELETE");
         ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
                 "REQUEST", Arrays.asList(
                         ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));

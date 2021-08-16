@@ -2,7 +2,9 @@ package com.cloudblue.connect;
 
 import com.boomi.common.rest.authentication.AuthenticationType;
 import com.boomi.connector.api.PropertyMap;
-import com.cloudblue.connect.utils.ConnectTestContext;
+
+import com.cloudblue.connect.test.utils.ConnectTestContext;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -26,5 +28,23 @@ public class ConnectConnectionTest {
         when(context.getOperationProperties()).thenReturn(propertyMap);
 
         assertEquals("GET", connection.getHttpMethod());
+    }
+
+    @Test
+    public void getLimitTest() {
+        PropertyMap propertyMap = mock(PropertyMap.class);
+        when(propertyMap.getLongProperty(ConnectConnection.LIMIT_PROPERTY)).thenReturn(100L);
+        when(context.getOperationProperties()).thenReturn(propertyMap);
+
+        assertEquals(100L, (long)connection.getLimit());
+    }
+
+    @Test
+    public void getOffsetTest() {
+        PropertyMap propertyMap = mock(PropertyMap.class);
+        when(propertyMap.getLongProperty(ConnectConnection.OFFSET_PROPERTY)).thenReturn(10L);
+        when(context.getOperationProperties()).thenReturn(propertyMap);
+
+        assertEquals(10L, (long)connection.getOffset());
     }
 }

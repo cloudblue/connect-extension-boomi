@@ -16,11 +16,60 @@
     <operation types="EXECUTE" customTypeId="GET" customTypeLabel="Get">
         <field id="httpMethod" type="string" overrideable="false">
             <defaultValue>GET</defaultValue>
+            <allowedValue label="GET">
+                <value>GET</value>
+            </allowedValue>
         </field>
     </operation>
+
     <operation types="EXECUTE" customTypeId="CREATE" customTypeLabel="Create">
         <field id="httpMethod" type="string" overrideable="false">
             <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
         </field>
+    </operation>
+
+    <operation types="QUERY" customTypeId="LIST" customTypeLabel="List">
+        <field id="httpMethod" type="string" overrideable="false">
+            <defaultValue>GET</defaultValue>
+            <allowedValue label="GET">
+                <value>GET</value>
+            </allowedValue>
+        </field>
+
+        <field id="limit" type="integer" label="Limit">
+            <helpText>
+                Enter number of records to fetch. Max 1000.
+            </helpText>
+            <defaultValue>100</defaultValue>
+        </field>
+
+        <field id="offset" type="integer" label="Offset">
+            <helpText>
+                Enter number of records to skip.
+            </helpText>
+            <defaultValue>0</defaultValue>
+        </field>
+
+        <queryFilter grouping="any" sorting="unbounded">
+            <operator id="eq" label="Equal To"/>
+            <operator id="ne" label="Not Equal To" />
+            <operator id="gt" label="Greater Than" />
+            <operator id="ge" label="Greater Than Or Equal"/>
+            <operator id="lt" label="Less Than"/>
+            <operator id="le" label="Less Than Or Equal"/>
+            <operator id="like" label="Like">
+                <supportedType type="string" />
+            </operator>
+            <operator id="ilike" label="Case Insensitive Like">
+                <supportedType type="string" />
+            </operator>
+            <operator id="expr" label="Raw RQL"/>
+
+            <sortOrder id="asc" label="Ascending" />
+            <sortOrder id="desc" label="Descending" />
+        </queryFilter>
     </operation>
 </GenericConnectorDescriptor>
