@@ -23,7 +23,7 @@ public class ExecuteOperation extends RestOperation {
         ResourceOperationType operationType = ResourceOperationType
                 .valueOf(getContext().getCustomOperationType().toUpperCase());
 
-        if (operationType == ResourceOperationType.GET) {
+        if (operationType == ResourceOperationType.GET || operationType == ResourceOperationType.UPDATE) {
             String idValue = JsonUtil.getFieldStringValue(data.getData(), "id");
             return resourceType.getPath() + "/" + idValue;
         } else {

@@ -1,9 +1,6 @@
 package com.cloudblue.connect.browser;
 
-import com.boomi.connector.api.ObjectDefinitionRole;
-import com.boomi.connector.api.ObjectDefinitions;
-import com.boomi.connector.api.ObjectType;
-import com.boomi.connector.api.OperationType;
+import com.boomi.connector.api.*;
 
 import com.cloudblue.connect.test.utils.ConnectTestContext;
 import com.cloudblue.connect.utils.SchemaUtil;
@@ -12,8 +9,12 @@ import org.junit.Test;
 
 import org.mockito.MockedStatic;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileLock;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
@@ -84,6 +85,34 @@ public class ConnectBrowserTest {
                     "REQUEST", Arrays.asList(
                             ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
             assertEquals(0, objectDefinitions.getDefinitions().size());
+        }
+    }
+
+    @Test(expected = ConnectorException.class)
+    public void testGetObjectDefinitionsSchemaFileLocked() throws IOException {
+        when(context.getCustomOperationType()).thenReturn("CREATE");
+
+        OperationSchemaInfo schemaInfo = new OperationSchemaInfo()
+                .input("Asset-schema.json");
+
+        final RandomAccessFile raFile = new RandomAccessFile(
+                Objects.requireNonNull(this.getClass()
+                        .getResource("/schemas/Asset-schema.json"))
+                        .getFile(),
+                "rw");
+        FileLock fileLock = raFile.getChannel().lock();
+
+        try (MockedStatic<SchemaUtil> schemaUtilMockedStatic = mockStatic(SchemaUtil.class)) {
+            schemaUtilMockedStatic.when(
+                    () -> SchemaUtil.getSchemaInfo("REQUEST", "CREATE")
+            ).thenReturn(schemaInfo);
+
+            browser.getObjectDefinitions("REQUEST", Arrays.asList(
+                            ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
+        }finally {
+            fileLock.release();
+            fileLock.close();
+            raFile.getChannel().close();
         }
     }
 }
