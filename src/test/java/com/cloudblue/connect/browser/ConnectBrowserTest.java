@@ -3,6 +3,7 @@ package com.cloudblue.connect.browser;
 import com.boomi.connector.api.*;
 
 import com.cloudblue.connect.test.utils.ConnectTestContext;
+import com.cloudblue.connect.utils.FileUtil;
 import com.cloudblue.connect.utils.SchemaUtil;
 
 import org.junit.Test;
@@ -10,14 +11,12 @@ import org.junit.Test;
 import org.mockito.MockedStatic;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.channels.FileLock;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
@@ -89,30 +88,26 @@ public class ConnectBrowserTest {
     }
 
     @Test(expected = ConnectorException.class)
-    public void testGetObjectDefinitionsSchemaFileLocked() throws IOException {
+    public void testGetObjectDefinitionsFailed() {
         when(context.getCustomOperationType()).thenReturn("CREATE");
 
         OperationSchemaInfo schemaInfo = new OperationSchemaInfo()
                 .input("Asset-schema.json");
 
-        final RandomAccessFile raFile = new RandomAccessFile(
-                Objects.requireNonNull(this.getClass()
-                        .getResource("/schemas/Asset-schema.json"))
-                        .getFile(),
-                "rw");
-        FileLock fileLock = raFile.getChannel().lock();
-
-        try (MockedStatic<SchemaUtil> schemaUtilMockedStatic = mockStatic(SchemaUtil.class)) {
+        try (
+                MockedStatic<SchemaUtil> schemaUtilMockedStatic = mockStatic(SchemaUtil.class);
+                MockedStatic<FileUtil> fileUtilMockedStatic = mockStatic(FileUtil.class)
+        ) {
             schemaUtilMockedStatic.when(
                     () -> SchemaUtil.getSchemaInfo("REQUEST", "CREATE")
             ).thenReturn(schemaInfo);
 
+            fileUtilMockedStatic.when(
+                    () -> FileUtil.readJsonSchema(any())
+            ).thenThrow(IOException.class);
+
             browser.getObjectDefinitions("REQUEST", Arrays.asList(
                             ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
-        }finally {
-            fileLock.release();
-            fileLock.close();
-            raFile.getChannel().close();
         }
     }
 }

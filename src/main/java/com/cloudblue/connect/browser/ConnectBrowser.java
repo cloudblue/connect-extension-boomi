@@ -3,18 +3,13 @@ package com.cloudblue.connect.browser;
 import com.boomi.connector.api.*;
 import com.boomi.connector.util.BaseBrowser;
 
+import com.cloudblue.connect.utils.FileUtil;
 import com.cloudblue.connect.utils.SchemaUtil;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
-import java.util.logging.Logger;
 
 public class ConnectBrowser extends BaseBrowser {
-
-    public static final Logger LOGGER = Logger.getLogger("ConnectBrowser");
 
     public ConnectBrowser(BrowseContext context) {
         super(context);
@@ -44,13 +39,13 @@ public class ConnectBrowser extends BaseBrowser {
                         definitions.getDefinitions().add(objectDefinition
                                 .withInputType(ContentType.JSON)
                                 .withOutputType(ContentType.NONE)
-                                .withJsonSchema(readJsonSchema(schemaInfo.getInput()))
+                                .withJsonSchema(FileUtil.readJsonSchema(schemaInfo.getInput()))
                                 .withElementName(""));
                     } else if (ObjectDefinitionRole.OUTPUT == role && schemaInfo.getOutput() != null) {
                         definitions.getDefinitions().add(objectDefinition
                                 .withInputType(ContentType.NONE)
                                 .withOutputType(ContentType.JSON)
-                                .withJsonSchema(readJsonSchema(schemaInfo.getOutput()))
+                                .withJsonSchema(FileUtil.readJsonSchema(schemaInfo.getOutput()))
                                 .withElementName(""));
                     }
                 }
@@ -60,21 +55,6 @@ public class ConnectBrowser extends BaseBrowser {
         }
 
         return definitions;
-    }
-
-    private static String readJsonSchema(String fileName) throws IOException {
-        try (InputStream is = ConnectBrowser.class.getResourceAsStream("/schemas/" + fileName)) {
-            return toString(is, StandardCharsets.UTF_8.toString());
-        }
-    }
-
-    private static String toString(InputStream in, String charsetName) throws IOException {
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        byte[] buf = new byte[8192];
-        for( int len; ( len = in.read(buf) ) != -1; ) {
-            bout.write(buf, 0, len);
-        }
-        return bout.toString(charsetName);
     }
 
     private ResourceOperationType getResourceOperationType() {
