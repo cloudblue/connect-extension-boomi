@@ -3,9 +3,12 @@ package com.cloudblue.connect;
 import com.boomi.connector.api.Browser;
 
 import com.boomi.connector.api.Operation;
+
+import com.boomi.connector.util.BaseConnection;
 import com.cloudblue.connect.browser.ConnectBrowser;
 import com.cloudblue.connect.operations.ExecuteOperation;
-import com.cloudblue.connect.utils.ConnectTestContext;
+import com.cloudblue.connect.operations.QueryOperation;
+import com.cloudblue.connect.test.utils.ConnectTestContext;
 
 import org.junit.Test;
 
@@ -29,5 +32,16 @@ public class ConnectConnectorTest {
         Operation executeOperation = connector.createExecuteOperation(context);
 
         assertTrue(executeOperation instanceof ExecuteOperation);
+    }
+
+    @Test
+    public void createQueryOperationTest() {
+        Operation queryOperation = connector.createQueryOperation(context);
+
+        assertTrue(queryOperation instanceof QueryOperation);
+
+        BaseConnection connection = ((QueryOperation)queryOperation).getConnection();
+
+        assertTrue(connection instanceof ConnectConnection);
     }
 }

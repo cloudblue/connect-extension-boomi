@@ -12,6 +12,13 @@ public class SchemaUtil {
     private static final Map<ResourceType, ResourceInfo> RESOURCE_INFO_MAP = new EnumMap<>(ResourceType.class);
 
     public static final String GET_RESOURCE_INPUT_SCHEMA = "GetResourceInput-schema.json";
+    public static final String REQUEST_SCHEMA = "Request-schema.json";
+    public static final String NEW_REQUEST_SCHEMA = "NewRequest-schema.json";
+    public static final String ASSET_SCHEMA = "Asset-schema.json";
+    public static final String TIER_ACCOUNT_SCHEMA = "TierAccount-schema.json";
+    public static final String TIER_ACCOUNT_REQUEST_SCHEMA = "TierAccountRequest-schema.json";
+    public static final String TIER_CONFIG_SCHEMA = "TierConfig-schema.json";
+    public static final String TIER_CONFIG_REQUEST_SCHEMA = "TierConfigRequest-schema.json";
 
     static {
         RESOURCE_INFO_MAP.put(
@@ -23,13 +30,17 @@ public class SchemaUtil {
                                 ResourceOperationType.GET,
                                 new OperationSchemaInfo()
                                         .input(GET_RESOURCE_INPUT_SCHEMA)
-                                        .output("Request-schema.json")
+                                        .output(REQUEST_SCHEMA)
                         ).operationSchema(
                                 ResourceOperationType.CREATE,
                                 new OperationSchemaInfo()
-                                        .input("NewRequest-schema.json")
-                                        .output("Request-schema.json")
-                )
+                                        .input(NEW_REQUEST_SCHEMA)
+                                        .output(REQUEST_SCHEMA)
+                        ).operationSchema(
+                                ResourceOperationType.LIST,
+                                new OperationSchemaInfo()
+                                    .output(REQUEST_SCHEMA)
+                        )
         );
         RESOURCE_INFO_MAP.put(
                 ResourceType.ASSET,
@@ -40,7 +51,11 @@ public class SchemaUtil {
                                 ResourceOperationType.GET,
                                 new OperationSchemaInfo()
                                         .input(GET_RESOURCE_INPUT_SCHEMA)
-                                        .output("Asset-schema.json")
+                                        .output(ASSET_SCHEMA)
+                        ).operationSchema(
+                                ResourceOperationType.LIST,
+                                new OperationSchemaInfo()
+                                        .output(ASSET_SCHEMA)
                         )
         );
         RESOURCE_INFO_MAP.put(
@@ -52,7 +67,11 @@ public class SchemaUtil {
                                 ResourceOperationType.GET,
                                 new OperationSchemaInfo()
                                         .input(GET_RESOURCE_INPUT_SCHEMA)
-                                        .output("TierAccount-schema.json")
+                                        .output(TIER_ACCOUNT_SCHEMA)
+                        ).operationSchema(
+                                ResourceOperationType.LIST,
+                                new OperationSchemaInfo()
+                                        .output(TIER_ACCOUNT_SCHEMA)
                         )
         );
         RESOURCE_INFO_MAP.put(
@@ -64,7 +83,11 @@ public class SchemaUtil {
                                 ResourceOperationType.GET,
                                 new OperationSchemaInfo()
                                         .input(GET_RESOURCE_INPUT_SCHEMA)
-                                        .output("TierAccountRequest-schema.json")
+                                        .output(TIER_ACCOUNT_REQUEST_SCHEMA)
+                        ).operationSchema(
+                                ResourceOperationType.LIST,
+                                new OperationSchemaInfo()
+                                        .output(TIER_ACCOUNT_REQUEST_SCHEMA)
                         )
         );
         RESOURCE_INFO_MAP.put(
@@ -76,7 +99,11 @@ public class SchemaUtil {
                                 ResourceOperationType.GET,
                                 new OperationSchemaInfo()
                                         .input(GET_RESOURCE_INPUT_SCHEMA)
-                                        .output("TierConfig-schema.json")
+                                        .output(TIER_CONFIG_SCHEMA)
+                        ).operationSchema(
+                                ResourceOperationType.LIST,
+                                new OperationSchemaInfo()
+                                        .output(TIER_CONFIG_SCHEMA)
                         )
         );
         RESOURCE_INFO_MAP.put(
@@ -88,7 +115,11 @@ public class SchemaUtil {
                                 ResourceOperationType.GET,
                                 new OperationSchemaInfo()
                                         .input(GET_RESOURCE_INPUT_SCHEMA)
-                                        .output("TierConfigRequest-schema.json")
+                                        .output(TIER_CONFIG_REQUEST_SCHEMA)
+                        ).operationSchema(
+                                ResourceOperationType.LIST,
+                                new OperationSchemaInfo()
+                                        .output(TIER_CONFIG_REQUEST_SCHEMA)
                         )
         );
     }

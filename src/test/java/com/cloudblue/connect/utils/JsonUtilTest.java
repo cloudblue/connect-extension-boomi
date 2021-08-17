@@ -1,6 +1,5 @@
-package com.cloudblue.connect;
+package com.cloudblue.connect.utils;
 
-import com.cloudblue.connect.utils.JsonUtil;
 import org.junit.Test;
 
 import java.io.File;

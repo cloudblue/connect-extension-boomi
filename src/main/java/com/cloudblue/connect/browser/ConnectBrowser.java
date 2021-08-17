@@ -16,7 +16,6 @@ public class ConnectBrowser extends BaseBrowser {
 
     public static final Logger LOGGER = Logger.getLogger("ConnectBrowser");
 
-
     public ConnectBrowser(BrowseContext context) {
         super(context);
     }
