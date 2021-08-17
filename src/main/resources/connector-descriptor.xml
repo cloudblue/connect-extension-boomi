@@ -31,6 +31,15 @@
         </field>
     </operation>
 
+    <operation types="EXECUTE" customTypeId="UPDATE" customTypeLabel="Update">
+        <field id="httpMethod" type="string" overrideable="false">
+            <defaultValue>PUT</defaultValue>
+            <allowedValue label="POST">
+                <value>PUT</value>
+            </allowedValue>
+        </field>
+    </operation>
+
     <operation types="QUERY" customTypeId="LIST" customTypeLabel="List">
         <field id="httpMethod" type="string" overrideable="false">
             <defaultValue>GET</defaultValue>

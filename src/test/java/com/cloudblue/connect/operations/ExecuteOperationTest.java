@@ -24,7 +24,7 @@ public class ExecuteOperationTest {
     ExecuteOperation operation = new ExecuteOperation(new ConnectConnection(context));
 
     @Test
-    public void testPathForGet() throws FileNotFoundException {
+    public void testGetPathForGet() throws FileNotFoundException {
 
         when(context.getObjectTypeId()).thenReturn("REQUEST");
         when(context.getCustomOperationType()).thenReturn("GET");
@@ -42,7 +42,25 @@ public class ExecuteOperationTest {
     }
 
     @Test
-    public void testPathForCreate() {
+    public void testGetPathForUpdate() throws FileNotFoundException {
+
+        when(context.getObjectTypeId()).thenReturn("REQUEST");
+        when(context.getCustomOperationType()).thenReturn("UPDATE");
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(Objects.requireNonNull(
+                classLoader.getResource("UpdateRequest.json")).getFile());
+        InputStream inputStream = new FileInputStream(file);
+        ObjectData objectData = mock(ObjectData.class);
+        when(objectData.getData()).thenReturn(inputStream);
+
+        String path = operation.getPath(objectData);
+
+        assertEquals("requests/PR-9480-2709-4408-004", path);
+    }
+
+    @Test
+    public void testGetPathForCreate() {
         when(context.getObjectTypeId()).thenReturn("REQUEST");
         when(context.getCustomOperationType()).thenReturn("CREATE");
 

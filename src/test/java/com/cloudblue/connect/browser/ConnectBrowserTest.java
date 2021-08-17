@@ -1,22 +1,22 @@
 package com.cloudblue.connect.browser;
 
-import com.boomi.connector.api.ObjectDefinitionRole;
-import com.boomi.connector.api.ObjectDefinitions;
-import com.boomi.connector.api.ObjectType;
-import com.boomi.connector.api.OperationType;
+import com.boomi.connector.api.*;
 
 import com.cloudblue.connect.test.utils.ConnectTestContext;
+import com.cloudblue.connect.utils.FileUtil;
 import com.cloudblue.connect.utils.SchemaUtil;
 
 import org.junit.Test;
 
 import org.mockito.MockedStatic;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
@@ -84,6 +84,30 @@ public class ConnectBrowserTest {
                     "REQUEST", Arrays.asList(
                             ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
             assertEquals(0, objectDefinitions.getDefinitions().size());
+        }
+    }
+
+    @Test(expected = ConnectorException.class)
+    public void testGetObjectDefinitionsFailed() {
+        when(context.getCustomOperationType()).thenReturn("CREATE");
+
+        OperationSchemaInfo schemaInfo = new OperationSchemaInfo()
+                .input("Asset-schema.json");
+
+        try (
+                MockedStatic<SchemaUtil> schemaUtilMockedStatic = mockStatic(SchemaUtil.class);
+                MockedStatic<FileUtil> fileUtilMockedStatic = mockStatic(FileUtil.class)
+        ) {
+            schemaUtilMockedStatic.when(
+                    () -> SchemaUtil.getSchemaInfo("REQUEST", "CREATE")
+            ).thenReturn(schemaInfo);
+
+            fileUtilMockedStatic.when(
+                    () -> FileUtil.readJsonSchema(any())
+            ).thenThrow(IOException.class);
+
+            browser.getObjectDefinitions("REQUEST", Arrays.asList(
+                            ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
         }
     }
 }

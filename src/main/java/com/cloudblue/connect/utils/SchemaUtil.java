@@ -12,8 +12,11 @@ public class SchemaUtil {
     private static final Map<ResourceType, ResourceInfo> RESOURCE_INFO_MAP = new EnumMap<>(ResourceType.class);
 
     public static final String GET_RESOURCE_INPUT_SCHEMA = "GetResourceInput-schema.json";
+
     public static final String REQUEST_SCHEMA = "Request-schema.json";
     public static final String NEW_REQUEST_SCHEMA = "NewRequest-schema.json";
+    public static final String UPDATE_REQUEST_SCHEMA = "UpdateRequest-schema.json";
+
     public static final String ASSET_SCHEMA = "Asset-schema.json";
     public static final String TIER_ACCOUNT_SCHEMA = "TierAccount-schema.json";
     public static final String TIER_ACCOUNT_REQUEST_SCHEMA = "TierAccountRequest-schema.json";
@@ -40,6 +43,11 @@ public class SchemaUtil {
                                 ResourceOperationType.LIST,
                                 new OperationSchemaInfo()
                                     .output(REQUEST_SCHEMA)
+                        ).operationSchema(
+                                ResourceOperationType.UPDATE,
+                                new OperationSchemaInfo()
+                                .input(UPDATE_REQUEST_SCHEMA)
+                                .output(REQUEST_SCHEMA)
                         )
         );
         RESOURCE_INFO_MAP.put(
