@@ -1,0 +1,16 @@
+{
+  "$schema" : "http://json-schema.org/draft-07/schema#",
+  "type" : "object",
+  "properties" : {
+    "case_id" : {
+      "type": "string"
+    },
+    "feedback" : {
+      "type" : "string"
+    },
+    "rating" : {
+      "type" : "integer"
+    }
+  },
+  "required": ["case_id", "feedback"]
+}

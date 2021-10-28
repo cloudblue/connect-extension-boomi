@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2021 Ingram Micro Inc. All rights reserved.
+ * The software in this package is published under the terms of the Apache-2.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE file.
+ */
+
 package com.cloudblue.connect.operations;
 
 import com.boomi.connector.api.ObjectData;
@@ -62,7 +69,7 @@ public class ExecuteOperationTest {
     @Test
     public void testGetPathForCreate() {
         when(context.getObjectTypeId()).thenReturn("REQUEST");
-        when(context.getCustomOperationType()).thenReturn("CREATE");
+        when(context.getCustomOperationType()).thenReturn("CREATE_PURCHASE_REQUEST");
 
         String path = operation.getPath(null);
 
@@ -72,7 +79,7 @@ public class ExecuteOperationTest {
     @Test
     public void testGetHeadersForCreate() {
         when(context.getObjectTypeId()).thenReturn("REQUEST");
-        when(context.getCustomOperationType()).thenReturn("CREATE");
+        when(context.getCustomOperationType()).thenReturn("CREATE_PURCHASE_REQUEST");
 
         Iterable<Map.Entry<String, String>> headers = operation.getHeaders(null);
 

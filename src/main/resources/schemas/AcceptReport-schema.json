@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "usage_report_id" : {
+      "type": "string"
+    },
+    "acceptance_note" : {
+      "type": "string"
+    }
+  },
+  "required": ["usage_report_id", "acceptance_note"]
+}

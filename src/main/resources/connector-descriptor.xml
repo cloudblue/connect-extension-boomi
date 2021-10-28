@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright © 2021 Ingram Micro Inc. All rights reserved.
+  ~ The software in this package is published under the terms of the Apache-2.0
+  ~ license, a copy of which has been included with this distribution in the
+  ~ LICENSE file.
+  -->
+
 <GenericConnectorDescriptor>
     <description>Connect Connector</description>
     <field id="url" label="API Service Endpoint" type="string">
@@ -13,7 +20,7 @@
         </helpText>
     </field>
 
-    <operation types="EXECUTE" customTypeId="GET" customTypeLabel="Get">
+    <operation types="EXECUTE" customTypeId="GET" customTypeLabel="Get Resource">
         <field id="httpMethod" type="string" overrideable="false">
             <defaultValue>GET</defaultValue>
             <allowedValue label="GET">
@@ -22,7 +29,7 @@
         </field>
     </operation>
 
-    <operation types="EXECUTE" customTypeId="CREATE" customTypeLabel="Create">
+    <operation types="EXECUTE" customTypeId="CREATE" customTypeLabel="Create Resource">
         <field id="httpMethod" type="string" overrideable="false">
             <defaultValue>POST</defaultValue>
             <allowedValue label="POST">
@@ -31,7 +38,7 @@
         </field>
     </operation>
 
-    <operation types="EXECUTE" customTypeId="UPDATE" customTypeLabel="Update">
+    <operation types="EXECUTE" customTypeId="UPDATE" customTypeLabel="Update Resource">
         <field id="httpMethod" type="string" overrideable="false">
             <defaultValue>PUT</defaultValue>
             <allowedValue label="POST">
@@ -40,7 +47,7 @@
         </field>
     </operation>
 
-    <operation types="QUERY" customTypeId="LIST" customTypeLabel="List">
+    <operation types="QUERY" customTypeId="LIST" customTypeLabel="List Resources">
         <field id="httpMethod" type="string" overrideable="false">
             <defaultValue>GET</defaultValue>
             <allowedValue label="GET">

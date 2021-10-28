@@ -1,14 +1,23 @@
+/*
+ * Copyright © 2021 Ingram Micro Inc. All rights reserved.
+ * The software in this package is published under the terms of the Apache-2.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE file.
+ */
+
 package com.cloudblue.connect.operations;
 
 import com.boomi.common.apache.http.response.HttpResult;
 import com.boomi.common.rest.RestClient;
 import com.boomi.connector.api.*;
 import com.boomi.connector.util.BaseQueryOperation;
-
 import com.boomi.util.URLUtil;
+
 import com.cloudblue.connect.ConnectConnection;
-import com.cloudblue.connect.browser.ResourceType;
+import com.cloudblue.connect.browser.metadata.Metadata;
+import com.cloudblue.connect.browser.metadata.MetadataUtil;
 import com.cloudblue.connect.utils.FilterUtil;
+
 import org.apache.http.client.methods.RequestBuilder;
 
 import java.net.MalformedURLException;
@@ -51,9 +60,8 @@ public class QueryOperation extends BaseQueryOperation {
     }
 
     protected String getPath(FilterData data) {
-        ResourceType resourceType = ResourceType.valueOf(
-                getContext().getObjectTypeId().toUpperCase());
-        String basePath = resourceType.getPath();
+        Metadata metadata = MetadataUtil.getMetadata(getContext().getObjectTypeId());
+        String basePath = metadata.getPath(null, null);
 
         String filterQueryString;
 
