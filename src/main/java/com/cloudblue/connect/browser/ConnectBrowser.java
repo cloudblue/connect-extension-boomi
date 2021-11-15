@@ -7,16 +7,26 @@
 
 package com.cloudblue.connect.browser;
 
-import com.boomi.connector.api.*;
+import com.boomi.connector.api.BrowseContext;
+import com.boomi.connector.api.ConnectorException;
+import com.boomi.connector.api.ContentType;
+import com.boomi.connector.api.ObjectDefinition;
+import com.boomi.connector.api.ObjectDefinitionRole;
+import com.boomi.connector.api.ObjectDefinitions;
+import com.boomi.connector.api.ObjectTypes;
+import com.boomi.connector.api.ui.BrowseField;
+import com.boomi.connector.api.ui.DataType;
 import com.boomi.connector.util.BaseBrowser;
 
 import com.cloudblue.connect.browser.metadata.Action;
 import com.cloudblue.connect.browser.metadata.ActionMetadata;
+import com.cloudblue.connect.browser.metadata.Keys;
 import com.cloudblue.connect.browser.metadata.Metadata;
 import com.cloudblue.connect.browser.metadata.MetadataUtil;
 import com.cloudblue.connect.utils.FileUtil;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 
 public class ConnectBrowser extends BaseBrowser {
@@ -37,34 +47,19 @@ public class ConnectBrowser extends BaseBrowser {
     }
 
     private void addInputDefinition(ObjectDefinitions definitions,
-                                    Metadata metadata,
                                     ActionMetadata actionMetadata) throws IOException {
         ObjectDefinition objectDefinition = new ObjectDefinition();
 
-        if (actionMetadata.getInput().equals(MetadataUtil.BASE_SCHEMA)) {
-            String schema = FileUtil.readJsonSchema(MetadataUtil.DETAIL_SCHEMA);
-            if (metadata.isSubCollection()) {
-                schema = FileUtil.readJsonSchema(MetadataUtil.SUB_COLLECTION_DETAILS_SCHEMA);
-
-                schema = schema.replace("parent_id", metadata.getParentId().getField());
-            }
-            definitions.getDefinitions().add(objectDefinition
-                    .withInputType(ContentType.JSON)
-                    .withOutputType(ContentType.NONE)
-                    .withJsonSchema(schema.replace("id", metadata.getId().getField()))
-                    .withElementName(""));
-        } else {
-            definitions.getDefinitions().add(objectDefinition
-                    .withInputType(ContentType.JSON)
-                    .withOutputType(ContentType.NONE)
-                    .withJsonSchema(FileUtil.readJsonSchema(actionMetadata.getInput()))
-                    .withElementName(""));
-        }
+        definitions.getDefinitions().add(objectDefinition
+                .withInputType(ContentType.JSON)
+                .withOutputType(ContentType.NONE)
+                .withJsonSchema(FileUtil.readJsonSchema(actionMetadata.getInput()))
+                .withElementName(""));
     }
 
     private void addOutputDefinition(ObjectDefinitions definitions,
-                                    Metadata metadata,
-                                    ActionMetadata actionMetadata) throws IOException {
+                                     Metadata metadata,
+                                     ActionMetadata actionMetadata) throws IOException {
         ObjectDefinition objectDefinition = new ObjectDefinition();
 
         if (actionMetadata.getOutput() == null && metadata.getSchema() != null) {
@@ -83,6 +78,39 @@ public class ConnectBrowser extends BaseBrowser {
         }
     }
 
+    private void addField(ObjectDefinitions definitions, Keys keys) {
+        addField(definitions, keys.getField(), keys.getLabel());
+
+    }
+
+    private void addField(ObjectDefinitions definitions, String keyId, String keyName) {
+        BrowseField keyField = new BrowseField();
+
+        keyField.setId(keyId);
+        keyField.setLabel(keyName);
+        keyField.setType(DataType.STRING);
+        keyField.setOverrideable(true);
+
+        definitions.getOperationFields().add(keyField);
+
+    }
+
+    private void addOperationFields(ObjectDefinitions definitions,
+                                    Metadata metadata,
+                                    ActionMetadata actionMetadata) {
+        if (metadata.isSubCollection()) {
+            addField(definitions, metadata.getParentId());
+        }
+
+        if (!actionMetadata.isCollectionAction()) {
+            addField(definitions, metadata.getId());
+        }
+
+        if (isUploadAction()) {
+            addField(definitions, actionMetadata.getFileName(), "File");
+        }
+    }
+
     @Override
     public ObjectDefinitions getObjectDefinitions(String objectTypeId, Collection<ObjectDefinitionRole> roles) {
         ObjectDefinitions definitions = new ObjectDefinitions();
@@ -91,14 +119,17 @@ public class ConnectBrowser extends BaseBrowser {
         ActionMetadata actionMetadata = MetadataUtil.getActionMetadata(
                 objectTypeId, getContext().getCustomOperationType());
         try {
+
             if (actionMetadata != null) {
                 for(ObjectDefinitionRole role : roles) {
                     if (ObjectDefinitionRole.INPUT == role && actionMetadata.getInput() != null) {
-                        addInputDefinition(definitions, metadata, actionMetadata);
+                        addInputDefinition(definitions, actionMetadata);
                     } else if (ObjectDefinitionRole.OUTPUT == role) {
                         addOutputDefinition(definitions, metadata, actionMetadata);
                     }
                 }
+
+                addOperationFields(definitions, metadata, actionMetadata);
             }
         } catch (IOException e) {
             throw new ConnectorException(e);
@@ -108,6 +139,14 @@ public class ConnectBrowser extends BaseBrowser {
     }
 
     private Action getResourceOperationType() {
+        return Action.valueOf(getContext().getCustomOperationType().toUpperCase());
+    }
+
+    private boolean isUploadAction() {
+        return Arrays.stream(Action.getUploadActions()).anyMatch(x -> x == getAction());
+    }
+
+    private Action getAction() {
         return Action.valueOf(getContext().getCustomOperationType().toUpperCase());
     }
 }

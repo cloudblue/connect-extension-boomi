@@ -21,8 +21,7 @@ public class ActionMetadata {
     private final List<Keys> filters = new ArrayList<>();
     private final List<Keys> formAttributes = new ArrayList<>();
     private String fileName;
-
-    private Metadata metadata;
+    private boolean customAction = true;
 
     public ActionMetadata output(String output) {
         this.output = output;
@@ -67,8 +66,8 @@ public class ActionMetadata {
         return this;
     }
 
-    public ActionMetadata metadata(Metadata metadata) {
-        this.metadata = metadata;
+    public ActionMetadata customAction(boolean customAction) {
+        this.customAction = customAction;
 
         return this;
     }
@@ -105,7 +104,7 @@ public class ActionMetadata {
         return fileName;
     }
 
-    public Metadata getMetadata() {
-        return metadata;
+    public boolean isCustomAction() {
+        return customAction;
     }
 }

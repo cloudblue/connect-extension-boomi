@@ -8,6 +8,7 @@
 package com.cloudblue.connect.browser.metadata;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.cloudblue.connect.client.constants.APIConstants.CollectionKeys.*;
 import static com.cloudblue.connect.browser.metadata.Keys.*;
@@ -15,9 +16,6 @@ import static com.cloudblue.connect.browser.metadata.Keys.*;
 public class MetadataUtil {
     private static final Map<ResourceType, Metadata> METADATA_STORE = new EnumMap<>(ResourceType.class);
 
-    public static final String BASE_SCHEMA = "BASE_SCHEMA";
-    public static final String DETAIL_SCHEMA = "GetResourceInput-schema.json";
-    public static final String SUB_COLLECTION_DETAILS_SCHEMA = "GetSubCollectionResourceInput-schema.json";
     public static final String TIER_ACCOUNT_SCHEMA = "TierAccount-schema.json";
     public static final String TIER_ACCOUNT_REQUEST_SCHEMA = "TierAccountRequest-schema.json";
     public static final String TIER_CONFIG_REQUEST_SCHEMA = "TierConfigRequest-schema.json";
@@ -44,6 +42,7 @@ public class MetadataUtil {
     public static final String NEW_PURCHASE_REQUEST_SCHEMA = "NewPurchaseRequest-schema.json";
     public static final String NEW_BILLING_REQUEST_SCHEMA = "NewBillingRequest-schema.json";
     public static final String NEW_ADMIN_HOLD_REQUEST_SCHEMA = "NewAdminHoldRequest-schema.json";
+    public static final String NEW_CHANGE_REQUEST = "NewChangeRequest-schema.json";
     public static final String NEW_TIER_ACCOUNT_SCHEMA = "NewTierAccount-schema.json";
     public static final String NEW_TIER_ACCOUNT_REQUEST_SCHEMA = "NewTierAccountRequest-schema.json";
     public static final String NEW_TIER_ACCOUNT_CONFIG_REQUEST_SCHEMA = "NewTierConfigRequest-schema.json";
@@ -58,7 +57,7 @@ public class MetadataUtil {
     public static final String APPROVE_TCR_SCHEMA = "ApproveTcr-schema.json";
     public static final String FAIL_TCR_SCHEMA = "FailTcr-schema.json";
     public static final String APPROVE_REQUEST_SCHEMA = "ApproveRequest-schema.json";
-    public static final String ASSIGN_REQUEST_SCHEMA = "ApproveRequest-schema.json";
+    public static final String ASSIGN_REQUEST_SCHEMA = "AssignRequest-schema.json";
     public static final String FAIL_REQUEST_SCHEMA = "FailRequest-schema.json";
     public static final String INQUIRE_REQUEST_SCHEMA = "InquireRequest-schema.json";
     public static final String CLOSE_CHUNK_SCHEMA = "CloseChunk-schema.json";
@@ -77,8 +76,10 @@ public class MetadataUtil {
                         .includeGetAction()
                         .includeListAction()
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
+                                .customAction(false)
                                 .input(NEW_TIER_ACCOUNT_SCHEMA))
                         .addActionMetaData(Action.UPDATE, new ActionMetadata()
+                                .customAction(false)
                                 .input(NEW_TIER_ACCOUNT_SCHEMA)));
 
         METADATA_STORE.put(ResourceType.TIER_ACCOUNT_VERSION,
@@ -100,9 +101,9 @@ public class MetadataUtil {
                         .includeGetAction()
                         .includeListAction()
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
+                                .customAction(false)
                                 .input(NEW_TIER_ACCOUNT_REQUEST_SCHEMA))
                         .addActionMetaData(Action.ACCEPT, new ActionMetadata()
-                                .input(BASE_SCHEMA)
                                 .includePayload(false))
                         .addActionMetaData(Action.IGNORE, new ActionMetadata()
                                 .input(IGNORE_TAR_SCHEMA)));
@@ -115,23 +116,24 @@ public class MetadataUtil {
                         .includeGetAction()
                         .includeListAction()
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
+                                .customAction(false)
                                 .input(NEW_TIER_ACCOUNT_CONFIG_REQUEST_SCHEMA))
                         .addActionMetaData(Action.UPDATE, new ActionMetadata()
+                                .customAction(false)
                                 .input(UPDATE_TCR_SCHEMA))
                         .addActionMetaData(Action.APPROVE, new ActionMetadata()
                                 .input(APPROVE_TCR_SCHEMA))
                         .addActionMetaData(Action.INQUIRE, new ActionMetadata()
                                 .output(NO_OUTPUT_SCHEMA)
-                                .input(BASE_SCHEMA)
                                 .includePayload(false))
                         .addActionMetaData(Action.PENDING, new ActionMetadata()
                                 .output(NO_OUTPUT_SCHEMA)
-                                .input(BASE_SCHEMA)
                                 .includePayload(false)
-                                .action(Action.PEND.name().toLowerCase()))
-                        .addActionMetaData(Action.FAIL, new ActionMetadata()
+                                .action("pend"))
+                        .addActionMetaData(Action.REJECT, new ActionMetadata()
                                 .output(NO_OUTPUT_SCHEMA)
                                 .input(FAIL_TCR_SCHEMA)
+                                .action("fail")
                                 .includePayload(false)));
 
         METADATA_STORE.put(ResourceType.TIER_CONFIG,
@@ -149,31 +151,60 @@ public class MetadataUtil {
                         .schema(FULFILLMENT_REQUEST_SCHEMA)
                         .includeGetAction()
                         .includeListAction()
-                        .addActionMetaData(Action.CREATE_PURCHASE_REQUEST, new ActionMetadata()
-                                .input(NEW_PURCHASE_REQUEST_SCHEMA))
-                        .addActionMetaData(Action.CREATE_ADMIN_HOLD_REQUEST, new ActionMetadata()
-                                .input(NEW_ADMIN_HOLD_REQUEST_SCHEMA))
-                        .addActionMetaData(Action.CREATE_BILLING_REQUEST, new ActionMetadata()
-                                .input(NEW_BILLING_REQUEST_SCHEMA))
                         .addActionMetaData(Action.APPROVE, new ActionMetadata()
                                 .input(APPROVE_REQUEST_SCHEMA))
                         .addActionMetaData(Action.ASSIGN, new ActionMetadata()
                                 .input(ASSIGN_REQUEST_SCHEMA))
-                        .addActionMetaData(Action.FAIL, new ActionMetadata()
-                                .input(FAIL_REQUEST_SCHEMA))
+                        .addActionMetaData(Action.REJECT, new ActionMetadata()
+                                .input(FAIL_REQUEST_SCHEMA)
+                                .action("fail"))
                         .addActionMetaData(Action.INQUIRE, new ActionMetadata()
                                 .input(INQUIRE_REQUEST_SCHEMA))
-                        .addActionMetaData(Action.PURCHASE, new ActionMetadata()
-                                .includePayload(false)
-                                .input(BASE_SCHEMA))
+                        .addActionMetaData(Action.PURCHASE, new ActionMetadata())
                         .addActionMetaData(Action.UNASSIGN, new ActionMetadata()
-                                .includePayload(false)
-                                .input(BASE_SCHEMA))
+                                .includePayload(false))
                         .addActionMetaData(Action.PENDING, new ActionMetadata()
-                                .input(BASE_SCHEMA)
-                                .action(Action.PEND.name().toLowerCase()))
+                                .action("pend")
+                                .includePayload(false))
                         .addActionMetaData(Action.UPDATE, new ActionMetadata()
+                                .customAction(false)
                                 .input(UPDATE_REQUEST_SCHEMA)));
+
+        METADATA_STORE.put(ResourceType.PURCHASE_REQUEST,
+                new Metadata()
+                        .collection(REQUESTS)
+                        .id(REQUEST_ID)
+                        .schema(FULFILLMENT_REQUEST_SCHEMA)
+                        .addActionMetaData(Action.CREATE, new ActionMetadata()
+                                .customAction(false)
+                                .input(NEW_PURCHASE_REQUEST_SCHEMA)));
+
+        METADATA_STORE.put(ResourceType.CHANGE_REQUEST,
+                new Metadata()
+                        .collection(REQUESTS)
+                        .id(REQUEST_ID)
+                        .schema(FULFILLMENT_REQUEST_SCHEMA)
+                        .addActionMetaData(Action.CREATE, new ActionMetadata()
+                                .customAction(false)
+                                .input(NEW_CHANGE_REQUEST)));
+
+        METADATA_STORE.put(ResourceType.ADMIN_HOLD_REQUEST,
+                new Metadata()
+                        .collection(REQUESTS)
+                        .id(REQUEST_ID)
+                        .schema(FULFILLMENT_REQUEST_SCHEMA)
+                        .addActionMetaData(Action.CREATE, new ActionMetadata()
+                                .customAction(false)
+                                .input(NEW_ADMIN_HOLD_REQUEST_SCHEMA)));
+
+        METADATA_STORE.put(ResourceType.BILLING_REQUEST,
+                new Metadata()
+                        .collection(REQUESTS)
+                        .id(REQUEST_ID)
+                        .schema(FULFILLMENT_REQUEST_SCHEMA)
+                        .addActionMetaData(Action.CREATE,  new ActionMetadata()
+                                .customAction(false)
+                                .input(NEW_BILLING_REQUEST_SCHEMA)));
 
         METADATA_STORE.put(ResourceType.ASSET,
                 new Metadata()
@@ -268,12 +299,11 @@ public class MetadataUtil {
                         .includeGetAction()
                         .includeListAction()
                         .addActionMetaData(Action.REGENERATE, new ActionMetadata()
-                                .input(BASE_SCHEMA)
                                 .includePayload(false))
                         .addActionMetaData(Action.CLOSE, new ActionMetadata()
                                 .input(CLOSE_CHUNK_SCHEMA))
                         .addActionMetaData(Action.DOWNLOAD, new ActionMetadata()
-                                .input(BASE_SCHEMA))
+                                .includePayload(false))
                         .addActionMetaData(Action.UPDATE, new ActionMetadata()
                                 .input(UPDATE_CHUNK_FILE_SCHEMA)));
 
@@ -300,28 +330,24 @@ public class MetadataUtil {
                         .includeGetAction()
                         .includeListAction()
                         .addActionMetaData(Action.UPLOAD, new ActionMetadata()
-                                .input(BASE_SCHEMA)
                                 .fileName("usage_file"))
                         .addActionMetaData(Action.UPLOAD_RECON_FILE, new ActionMetadata()
-                                .input(BASE_SCHEMA)
                                 .fileName("recon_file")
                                 .action("reconciliation"))
                         .addActionMetaData(Action.UPDATE, new ActionMetadata()
+                                .customAction(false)
                                 .input(UPDATE_USAGE_REPORT_SCHEMA))
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
+                                .customAction(false)
                                 .input(NEW_USAGE_REPORT_SCHEMA))
                         .addActionMetaData(Action.CLOSE, new ActionMetadata()
-                                .includePayload(false)
-                                .input(BASE_SCHEMA))
+                                .includePayload(false))
                         .addActionMetaData(Action.SUBMIT, new ActionMetadata()
-                                .includePayload(false)
-                                .input(BASE_SCHEMA))
+                                .includePayload(false))
                         .addActionMetaData(Action.REPROCESS, new ActionMetadata()
-                                .includePayload(false)
-                                .input(BASE_SCHEMA))
+                                .includePayload(false))
                         .addActionMetaData(Action.DELETE, new ActionMetadata()
                                 .includePayload(false)
-                                .input(BASE_SCHEMA)
                                 .action(Action.DELETE.name().toLowerCase()))
                         .addActionMetaData(Action.REJECT, new ActionMetadata()
                                 .input(REJECT_REPORT_SCHEMA))
@@ -336,16 +362,28 @@ public class MetadataUtil {
                         .includeGetAction()
                         .includeListAction()
                         .addActionMetaData(Action.UPLOAD, new ActionMetadata()
-                                .input(BASE_SCHEMA)
                                 .fileName("recon_file")
                                 .formAttributes(UPLOAD_NOTE)
-                                .collectionAction(true))
-                        .addActionMetaData(Action.DOWNLOAD_PROCESSED_FILE, new ActionMetadata()
-                                .input(BASE_SCHEMA)
-                                .action("processedfile"))
-                        .addActionMetaData(Action.DOWNLOAD_UPLOADED_FILE, new ActionMetadata()
-                                .input(BASE_SCHEMA)
-                                .action("uploadedfile")));
+                                .customAction(false)
+                                .collectionAction(true)));
+
+        METADATA_STORE.put(ResourceType.RECONCILIATION_PROCESSED_FILE,
+                new Metadata()
+                        .collection(RECONCILIATIONS)
+                        .id(USAGE_RECON_ID)
+                        .schema(USAGE_RECON_SCHEMA)
+                        .addActionMetaData(Action.DOWNLOAD, new ActionMetadata()
+                                .action("processedfile")
+                                .includePayload(false)));
+
+        METADATA_STORE.put(ResourceType.RECONCILIATION_UPLOADED_FILE,
+                new Metadata()
+                        .collection(RECONCILIATIONS)
+                        .id(USAGE_RECON_ID)
+                        .schema(USAGE_RECON_SCHEMA)
+                        .addActionMetaData(Action.DOWNLOAD, new ActionMetadata()
+                                .action("uploadedfile")
+                                .includePayload(false)));
 
         METADATA_STORE.put(ResourceType.USAGE_AGGREGATE,
                 new Metadata()
@@ -361,12 +399,12 @@ public class MetadataUtil {
                         .includeGetAction()
                         .includeListAction()
                         .addActionMetaData(Action.PENDING, new ActionMetadata()
-                                .input(BASE_SCHEMA)
-                                .action(Action.PEND.name().toLowerCase()))
+                                .action("pend")
+                                .includePayload(false))
                         .addActionMetaData(Action.INQUIRE, new ActionMetadata()
-                                .input(BASE_SCHEMA))
+                                .includePayload(false))
                         .addActionMetaData(Action.RESOLVE, new ActionMetadata()
-                                .input(BASE_SCHEMA))
+                                .includePayload(false))
                         .addActionMetaData(Action.CLOSE, new ActionMetadata()
                                 .input(CLOSE_CASE_SCHEMA))
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
@@ -417,6 +455,31 @@ public class MetadataUtil {
     }
 
     private MetadataUtil() {}
+
+    private static List<String> getSpecificResourceAction(String resourceType, Action[] allActions) {
+        ResourceType type = ResourceType.valueOf(resourceType.toUpperCase());
+        Metadata collectionInfo = METADATA_STORE.get(type);
+
+        if (collectionInfo == null || collectionInfo.getActionMetadata().isEmpty()) {
+            return new ArrayList<>();
+        } else {
+            return collectionInfo.getActionMetadata()
+                    .keySet()
+                    .stream()
+                    .filter(action -> Arrays.stream(allActions)
+                            .anyMatch(abstractAction -> action == abstractAction))
+                    .map(Enum::name)
+                    .collect(Collectors.toList());
+        }
+    }
+
+    public static List<String> getDownloadActions(String resourceType) {
+        return getSpecificResourceAction(resourceType, Action.getDownloadActions());
+    }
+
+    public static List<String> getUploadActions(String resourceType) {
+        return getSpecificResourceAction(resourceType, Action.getUploadActions());
+    }
 
     public static Metadata getMetadata(String resourceType) {
         ResourceType type = ResourceType.valueOf(resourceType.toUpperCase());

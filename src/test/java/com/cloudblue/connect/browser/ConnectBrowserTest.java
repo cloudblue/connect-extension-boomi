@@ -35,59 +35,35 @@ public class ConnectBrowserTest {
     public void testGetOperationObjectTypes() {
         when(context.getCustomOperationType()).thenReturn("GET");
         List<ObjectType> types = browser.getObjectTypes().getTypes();
-        assertEquals(6, types.size());
+        assertEquals(20, types.size());
     }
 
     @Test
     public void testExecuteOperationObjectTypes() {
         when(context.getCustomOperationType()).thenReturn("DELETE");
         List<ObjectType> types = browser.getObjectTypes().getTypes();
-        assertEquals(0, types.size());
+        assertEquals(1, types.size());
     }
 
     @Test
-    public void testExecuteOperationObjectDefinitionsForGet() {
-        when(context.getOperationType()).thenReturn(OperationType.EXECUTE);
-        when(context.getCustomOperationType()).thenReturn("GET");
-        ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
-                "REQUEST", Arrays.asList(
-                        ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
-        assertEquals(2, objectDefinitions.getDefinitions().size());
-    }
+    public void testExecuteOperationObjectDefinitions() {
+        String[] actions = {"GET", "PENDING", "CREATE", "DELETE", "CREATE"};
+        String[] resources = {"REQUEST", "REQUEST", "PURCHASE_REQUEST", "REQUEST", "REQUEST"};
+        int[] expected = {1, 1, 2, 0, 0};
 
-    @Test
-    public void testExecuteOperationObjectDefinitionsForCreate() {
-        when(context.getOperationType()).thenReturn(OperationType.EXECUTE);
-        when(context.getCustomOperationType()).thenReturn("CREATE");
-        ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
-                "REQUEST", Arrays.asList(
-                        ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
-        assertEquals(2, objectDefinitions.getDefinitions().size());
-    }
-
-    @Test
-    public void testUpdateOperationObjectDefinitionsForCreate() {
-        when(context.getOperationType()).thenReturn(OperationType.UPDATE);
-        when(context.getCustomOperationType()).thenReturn("DELETE");
-        ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
-                "REQUEST", Arrays.asList(
-                        ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
-        assertEquals(0, objectDefinitions.getDefinitions().size());
-    }
-
-    @Test
-    public void testGetObjectDefinitionsInputSchemaNotPresent() {
-        when(context.getCustomOperationType()).thenReturn("CREATE");
-
-        ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
-                "REQUEST", Arrays.asList(
-                        ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
-        assertEquals(0, objectDefinitions.getDefinitions().size());
+        for (int count = 0; count < actions.length; count++) {
+            when(context.getOperationType()).thenReturn(OperationType.EXECUTE);
+            when(context.getCustomOperationType()).thenReturn(actions[count]);
+            ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
+                    resources[count], Arrays.asList(
+                            ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
+            assertEquals(expected[count], objectDefinitions.getDefinitions().size());
+        }
     }
 
     @Test(expected = ConnectorException.class)
     public void testGetObjectDefinitionsFailed() {
-        when(context.getCustomOperationType()).thenReturn("CREATE_PURCHASE_REQUEST");
+        when(context.getCustomOperationType()).thenReturn("CREATE");
 
         try (
                 MockedStatic<FileUtil> fileUtilMockedStatic = mockStatic(FileUtil.class)
@@ -97,7 +73,7 @@ public class ConnectBrowserTest {
                     () -> FileUtil.readJsonSchema(any())
             ).thenThrow(IOException.class);
 
-            browser.getObjectDefinitions("REQUEST", Arrays.asList(
+            browser.getObjectDefinitions("PURCHASE_REQUEST", Arrays.asList(
                             ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
         }
     }

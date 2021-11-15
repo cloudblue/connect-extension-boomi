@@ -21,7 +21,7 @@
     </field>
 
     <operation types="EXECUTE" customTypeId="GET" customTypeLabel="Get Resource">
-        <field id="httpMethod" type="string" overrideable="false">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
             <defaultValue>GET</defaultValue>
             <allowedValue label="GET">
                 <value>GET</value>
@@ -30,7 +30,7 @@
     </operation>
 
     <operation types="EXECUTE" customTypeId="CREATE" customTypeLabel="Create Resource">
-        <field id="httpMethod" type="string" overrideable="false">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
             <defaultValue>POST</defaultValue>
             <allowedValue label="POST">
                 <value>POST</value>
@@ -39,7 +39,7 @@
     </operation>
 
     <operation types="EXECUTE" customTypeId="UPDATE" customTypeLabel="Update Resource">
-        <field id="httpMethod" type="string" overrideable="false">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
             <defaultValue>PUT</defaultValue>
             <allowedValue label="POST">
                 <value>PUT</value>
@@ -47,8 +47,170 @@
         </field>
     </operation>
 
+    <operation types="EXECUTE" customTypeId="UPLOAD" customTypeLabel="Upload Resource File">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="UPLOAD_RECON_FILE" customTypeLabel="Upload Reconciliation File">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="ACCEPT" customTypeLabel="Resource Action - Accept">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="REJECT" customTypeLabel="Resource Action - Reject">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="IGNORE" customTypeLabel="Resource Action - Ignore">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="APPROVE" customTypeLabel="Resource Action - Approve">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="INQUIRE" customTypeLabel="Resource Action - Inquire">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="PENDING" customTypeLabel="Resource Action - Pending">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="ASSIGN" customTypeLabel="Resource Action - Assign">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="UNASSIGN" customTypeLabel="Resource Action - Unassign">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="PURCHASE" customTypeLabel="Resource Action - Purchase">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="CLOSE" customTypeLabel="Resource Action - Close">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="REGENERATE" customTypeLabel="Resource Action - Regenerate">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="BULK_CLOSE" customTypeLabel="Resource Action - Bulk Close">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="REPROCESS" customTypeLabel="Resource Action - Reprocess">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="SUBMIT" customTypeLabel="Resource Action - Submit">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="RESOLVE" customTypeLabel="Resource Action - Resolve">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="DOWNLOAD" customTypeLabel="Download Resource File">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>GET</defaultValue>
+            <allowedValue label="GET">
+                <value>GET</value>
+            </allowedValue>
+        </field>
+    </operation>
+
     <operation types="QUERY" customTypeId="LIST" customTypeLabel="List Resources">
-        <field id="httpMethod" type="string" overrideable="false">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
             <defaultValue>GET</defaultValue>
             <allowedValue label="GET">
                 <value>GET</value>

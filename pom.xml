@@ -21,7 +21,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.assembly.plugin.version>2.6</maven.assembly.plugin.version>
-        <connector.sdk.version>2.10.0</connector.sdk.version>
+        <connector.sdk.version>2.11.2</connector.sdk.version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <jacoco.version>0.8.2</jacoco.version>
@@ -87,6 +87,11 @@
         <dependency>
             <groupId>com.boomi.connsdk</groupId>
             <artifactId>connector-sdk-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.boomi.connsdk</groupId>
+            <artifactId>connector-sdk-samples</artifactId>
+            <version>${connector.sdk.version}</version>
         </dependency>
         <dependency>
             <groupId>com.boomi.connsdk</groupId>

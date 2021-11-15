@@ -74,7 +74,9 @@ public class Metadata {
         this.addActionMetaData(Action.LIST,
                 new ActionMetadata()
                         .output(schema)
+                        .customAction(false)
                         .collectionAction(true)
+                        .includePayload(false)
                         .filter(filters));
 
         return this;
@@ -84,6 +86,8 @@ public class Metadata {
         this.addActionMetaData(Action.GET,
                 new ActionMetadata()
                         .output(schema)
+                        .customAction(false)
+                        .includePayload(false)
                         .filter(filters));
 
         return this;
@@ -126,19 +130,20 @@ public class Metadata {
             return false;
     }
 
-    public String getPath(String id, String parentId) {
+    public String getPath(String id, String parentId, String action) {
         List<String> pathParts = new ArrayList<>();
 
         if (parentId != null && !parentId.isEmpty()) {
-            boolean parentCollectionAdded = addIfNotBlank(pathParts, parentCollection);
+            boolean parentCollectionAdded = addIfNotBlank(pathParts, getParentCollection());
 
             if (parentCollectionAdded)
                 addIfNotBlank(pathParts, parentId);
         }
 
-        addIfNotBlank(pathParts, collection);
+        addIfNotBlank(pathParts, getCollection());
         addIfNotBlank(pathParts, id);
 
+        addIfNotBlank(pathParts, action);
 
         return String.join("/", pathParts);
     }

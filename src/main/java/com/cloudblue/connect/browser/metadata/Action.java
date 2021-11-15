@@ -8,17 +8,20 @@
 package com.cloudblue.connect.browser.metadata;
 
 public enum Action {
-    GET(true), LIST(false), CREATE(false),
-    UPDATE(true), DELETE(true), ACCEPT(true),
-    IGNORE(true), APPROVE(true), INQUIRE(true),
-    PENDING(true), PEND(true), FAIL(true),
-    ASSIGN(true), UNASSIGN(true), PURCHASE(true),
-    CLOSE(true), REGENERATE(true), BULK_CLOSE(false),
-    REJECT(true), REPROCESS(true), SUBMIT(true),
-    CREATE_PURCHASE_REQUEST(false), CREATE_ADMIN_HOLD_REQUEST(false),
-    CREATE_BILLING_REQUEST(false), DOWNLOAD(true),
-    DOWNLOAD_UPLOADED_FILE(true), DOWNLOAD_PROCESSED_FILE(true),
-    UPLOAD(true), UPLOAD_RECON_FILE(true), RESOLVE(true);
+    GET(true), LIST(false),
+    CREATE(false), UPDATE(true),
+    DELETE(true), ACCEPT(true),
+    IGNORE(true), APPROVE(true),
+    REJECT(true), UPLOAD(true),
+    INQUIRE(true), PENDING(true),
+    ASSIGN(true), UNASSIGN(true),
+    PURCHASE(true), CLOSE(true),
+    REGENERATE(true), BULK_CLOSE(false),
+    REPROCESS(true), SUBMIT(true),
+
+    RESOLVE(true),
+    DOWNLOAD(true),
+    UPLOAD_RECON_FILE(true);
 
     boolean isDetailOperation;
 
@@ -28,5 +31,18 @@ public enum Action {
 
     public boolean isDetailOperation() {
         return isDetailOperation;
+    }
+
+    public static Action[] getDownloadActions() {
+        return new Action[] {
+                DOWNLOAD,
+        };
+    }
+
+    public static Action[] getUploadActions() {
+        return new Action[] {
+                UPLOAD,
+                UPLOAD_RECON_FILE,
+        };
     }
 }

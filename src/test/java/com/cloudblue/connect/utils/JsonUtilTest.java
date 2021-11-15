@@ -7,11 +7,9 @@
 
 package com.cloudblue.connect.utils;
 
-import com.boomi.connector.api.ResponseUtil;
 import com.boomi.util.json.JSONUtil;
 import org.junit.Test;
 import org.mockito.MockedStatic;
-import org.mockito.stubbing.Answer;
 
 import java.io.*;
 import java.util.Objects;
@@ -31,7 +29,7 @@ public class JsonUtilTest {
                 Objects.requireNonNull(classLoader.getResource("GetResourceRequest.json"))
                         .getFile());
         InputStream inputStream = new FileInputStream(file);
-        String id = JsonUtil.getFieldStringValue(inputStream, "id");
+        String id = JsonUtil.getFieldStringValue(inputStream, "request_id");
 
         assertEquals("PR-9480-2709-4408-004", id);
     }

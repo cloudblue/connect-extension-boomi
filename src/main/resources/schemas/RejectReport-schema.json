@@ -2,12 +2,9 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "usage_report_id" : {
-      "type": "string"
-    },
     "rejection_note" : {
       "type": "string"
     }
   },
-  "required": ["usage_report_id", "rejection_note"]
+  "required": ["rejection_note"]
 }
