@@ -18,8 +18,8 @@ public class ActionMetadata {
     private String action;
     private boolean includePayload = true;
     private boolean collectionAction = false;
-    private final List<Keys> filters = new ArrayList<>();
-    private final List<Keys> formAttributes = new ArrayList<>();
+    private final List<Key> filters = new ArrayList<>();
+    private final List<Key> formAttributes = new ArrayList<>();
     private String fileName;
     private boolean customAction = true;
 
@@ -48,13 +48,13 @@ public class ActionMetadata {
         return this;
     }
 
-    public ActionMetadata filter(Keys... filter) {
+    public ActionMetadata filter(Key... filter) {
         this.filters.addAll(Arrays.asList(filter));
 
         return this;
     }
 
-    public ActionMetadata formAttributes(Keys... attributes) {
+    public ActionMetadata formAttributes(Key... attributes) {
         this.formAttributes.addAll(Arrays.asList(attributes));
 
         return this;
@@ -92,11 +92,11 @@ public class ActionMetadata {
         return collectionAction;
     }
 
-    public List<Keys> getFilters() {
+    public List<Key> getFilters() {
         return filters;
     }
 
-    public List<Keys> getFormAttributes() {
+    public List<Key> getFormAttributes() {
         return formAttributes;
     }
 

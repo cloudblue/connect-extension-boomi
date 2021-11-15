@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.cloudblue.connect.client.constants.APIConstants.CollectionKeys.*;
-import static com.cloudblue.connect.browser.metadata.Keys.*;
+import static com.cloudblue.connect.browser.metadata.Key.*;
 
 public class MetadataUtil {
     private static final Map<ResourceType, Metadata> METADATA_STORE = new EnumMap<>(ResourceType.class);
@@ -71,7 +71,7 @@ public class MetadataUtil {
         METADATA_STORE.put(ResourceType.TIER_ACCOUNT,
                 new Metadata()
                         .collection(TIER_ACCOUNTS)
-                        .id(Keys.TA_ID)
+                        .id(Key.TA_ID)
                         .schema(TIER_ACCOUNT_SCHEMA)
                         .includeGetAction()
                         .includeListAction()
@@ -177,6 +177,7 @@ public class MetadataUtil {
                         .schema(FULFILLMENT_REQUEST_SCHEMA)
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
                                 .customAction(false)
+                                .collectionAction(true)
                                 .input(NEW_PURCHASE_REQUEST_SCHEMA)));
 
         METADATA_STORE.put(ResourceType.CHANGE_REQUEST,
@@ -186,6 +187,7 @@ public class MetadataUtil {
                         .schema(FULFILLMENT_REQUEST_SCHEMA)
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
                                 .customAction(false)
+                                .collectionAction(true)
                                 .input(NEW_CHANGE_REQUEST)));
 
         METADATA_STORE.put(ResourceType.ADMIN_HOLD_REQUEST,
@@ -195,6 +197,7 @@ public class MetadataUtil {
                         .schema(FULFILLMENT_REQUEST_SCHEMA)
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
                                 .customAction(false)
+                                .collectionAction(true)
                                 .input(NEW_ADMIN_HOLD_REQUEST_SCHEMA)));
 
         METADATA_STORE.put(ResourceType.BILLING_REQUEST,
@@ -204,6 +207,7 @@ public class MetadataUtil {
                         .schema(FULFILLMENT_REQUEST_SCHEMA)
                         .addActionMetaData(Action.CREATE,  new ActionMetadata()
                                 .customAction(false)
+                                .collectionAction(true)
                                 .input(NEW_BILLING_REQUEST_SCHEMA)));
 
         METADATA_STORE.put(ResourceType.ASSET,

@@ -15,10 +15,10 @@ import java.util.Map;
 
 public class Metadata {
     private String collection;
-    private Keys id;
+    private Key id;
 
     private boolean isSubCollection = false;
-    private Keys parentId;
+    private Key parentId;
     private String parentCollection;
 
     private String schema;
@@ -31,7 +31,7 @@ public class Metadata {
         return this;
     }
 
-    public Metadata id(Keys id) {
+    public Metadata id(Key id) {
         this.id = id;
 
         return this;
@@ -43,7 +43,7 @@ public class Metadata {
         return this;
     }
 
-    public Metadata parentId(Keys parentId) {
+    public Metadata parentId(Key parentId) {
         this.parentId = parentId;
 
         return this;
@@ -70,7 +70,7 @@ public class Metadata {
         return this;
     }
 
-    public Metadata includeListAction(Keys... filters) {
+    public Metadata includeListAction(Key... filters) {
         this.addActionMetaData(Action.LIST,
                 new ActionMetadata()
                         .output(schema)
@@ -82,7 +82,7 @@ public class Metadata {
         return this;
     }
 
-    public Metadata includeGetAction(Keys... filters) {
+    public Metadata includeGetAction(Key... filters) {
         this.addActionMetaData(Action.GET,
                 new ActionMetadata()
                         .output(schema)
@@ -97,7 +97,7 @@ public class Metadata {
         return collection;
     }
 
-    public Keys getId() {
+    public Key getId() {
         return id;
     }
 
@@ -105,7 +105,7 @@ public class Metadata {
         return isSubCollection;
     }
 
-    public Keys getParentId() {
+    public Key getParentId() {
         return parentId;
     }
 

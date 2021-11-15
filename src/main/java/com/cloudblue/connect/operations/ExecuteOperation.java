@@ -14,6 +14,7 @@ import com.boomi.connector.api.ObjectData;
 
 import com.cloudblue.connect.browser.metadata.Action;
 import com.cloudblue.connect.browser.metadata.ActionMetadata;
+import com.cloudblue.connect.browser.metadata.Key;
 import com.cloudblue.connect.browser.metadata.Metadata;
 import com.cloudblue.connect.browser.metadata.MetadataUtil;
 import com.cloudblue.connect.utils.Common;
@@ -120,6 +121,14 @@ public class ExecuteOperation extends RestOperation {
                     new FileInputStream(file),
                     ContentType.DEFAULT_BINARY,
                     actionMetadata.getFileName() + ".xlsx");
+
+            for (Key key : actionMetadata.getFormAttributes()) {
+                String keyValue  = Common.getDynamicPropertyValue(
+                        data.getDynamicOperationProperties(),
+                        key.getField(),
+                        true);
+                builder.addTextBody(key.getField(), keyValue);
+            }
 
             return builder.build();
 

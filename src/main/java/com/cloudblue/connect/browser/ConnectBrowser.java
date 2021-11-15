@@ -20,7 +20,7 @@ import com.boomi.connector.util.BaseBrowser;
 
 import com.cloudblue.connect.browser.metadata.Action;
 import com.cloudblue.connect.browser.metadata.ActionMetadata;
-import com.cloudblue.connect.browser.metadata.Keys;
+import com.cloudblue.connect.browser.metadata.Key;
 import com.cloudblue.connect.browser.metadata.Metadata;
 import com.cloudblue.connect.browser.metadata.MetadataUtil;
 import com.cloudblue.connect.utils.FileUtil;
@@ -78,8 +78,8 @@ public class ConnectBrowser extends BaseBrowser {
         }
     }
 
-    private void addField(ObjectDefinitions definitions, Keys keys) {
-        addField(definitions, keys.getField(), keys.getLabel());
+    private void addField(ObjectDefinitions definitions, Key key) {
+        addField(definitions, key.getField(), key.getLabel());
 
     }
 
@@ -108,6 +108,10 @@ public class ConnectBrowser extends BaseBrowser {
 
         if (isUploadAction()) {
             addField(definitions, actionMetadata.getFileName(), "File");
+
+            for (Key key : actionMetadata.getFormAttributes()) {
+                addField(definitions, key);
+            }
         }
     }
 

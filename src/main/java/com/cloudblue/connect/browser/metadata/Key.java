@@ -7,7 +7,7 @@
 
 package com.cloudblue.connect.browser.metadata;
 
-public enum Keys {
+public enum Key {
     TEMPLATE_ID("template_id", "Template ID"),
     REQUEST_ID("request_id", "Request ID"),
     ASSET_ID("asset_id", "Asset ID"),
@@ -32,7 +32,7 @@ public enum Keys {
     private final String field;
     private final String label;
 
-    Keys(String field, String label) {
+    Key(String field, String label) {
         this.field = field;
         this.label = label;
     }
