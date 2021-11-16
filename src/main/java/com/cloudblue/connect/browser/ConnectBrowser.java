@@ -62,7 +62,11 @@ public class ConnectBrowser extends BaseBrowser {
                                      ActionMetadata actionMetadata) throws IOException {
         ObjectDefinition objectDefinition = new ObjectDefinition();
 
-        if (actionMetadata.getOutput() == null && metadata.getSchema() != null) {
+        if (isDownloadAction()) {
+            definitions.getDefinitions().add(objectDefinition
+                    .withInputType(ContentType.NONE)
+                    .withOutputType(ContentType.BINARY));
+        } else if (actionMetadata.getOutput() == null && metadata.getSchema() != null) {
             definitions.getDefinitions().add(objectDefinition
                     .withInputType(ContentType.NONE)
                     .withOutputType(ContentType.JSON)
@@ -148,6 +152,10 @@ public class ConnectBrowser extends BaseBrowser {
 
     private boolean isUploadAction() {
         return Arrays.stream(Action.getUploadActions()).anyMatch(x -> x == getAction());
+    }
+
+    private boolean isDownloadAction() {
+        return Arrays.stream(Action.getDownloadActions()).anyMatch(x -> x == getAction());
     }
 
     private Action getAction() {
