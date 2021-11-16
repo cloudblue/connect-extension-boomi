@@ -16,6 +16,7 @@ import static com.cloudblue.connect.browser.metadata.Key.*;
 public class MetadataUtil {
     private static final Map<ResourceType, Metadata> METADATA_STORE = new EnumMap<>(ResourceType.class);
 
+    public static final String EMPTY_OBJECT_SCHEMA = "EmptyInput-schema.json";
     public static final String TIER_ACCOUNT_SCHEMA = "TierAccount-schema.json";
     public static final String TIER_ACCOUNT_REQUEST_SCHEMA = "TierAccountRequest-schema.json";
     public static final String TIER_CONFIG_REQUEST_SCHEMA = "TierConfigRequest-schema.json";
@@ -124,14 +125,17 @@ public class MetadataUtil {
                         .addActionMetaData(Action.APPROVE, new ActionMetadata()
                                 .input(APPROVE_TCR_SCHEMA))
                         .addActionMetaData(Action.INQUIRE, new ActionMetadata()
+                                .input(EMPTY_OBJECT_SCHEMA)
                                 .output(NO_OUTPUT_SCHEMA)
                                 .includePayload(false))
                         .addActionMetaData(Action.PENDING, new ActionMetadata()
                                 .output(NO_OUTPUT_SCHEMA)
+                                .input(EMPTY_OBJECT_SCHEMA)
                                 .includePayload(false)
                                 .action("pend"))
                         .addActionMetaData(Action.REJECT, new ActionMetadata()
                                 .output(NO_OUTPUT_SCHEMA)
+                                .input(EMPTY_OBJECT_SCHEMA)
                                 .input(FAIL_TCR_SCHEMA)
                                 .action("fail")
                                 .includePayload(false)));

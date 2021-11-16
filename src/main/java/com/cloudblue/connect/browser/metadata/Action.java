@@ -18,9 +18,7 @@ public enum Action {
     PURCHASE(true), CLOSE(true),
     REGENERATE(true), BULK_CLOSE(false),
     REPROCESS(true), SUBMIT(true),
-
-    RESOLVE(true),
-    DOWNLOAD(true),
+    RESOLVE(true), DOWNLOAD(true),
     UPLOAD_RECON_FILE(true);
 
     boolean isDetailOperation;

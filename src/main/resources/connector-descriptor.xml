@@ -29,6 +29,48 @@
         </field>
     </operation>
 
+    <operation types="QUERY" customTypeId="LIST" customTypeLabel="List Resources">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>GET</defaultValue>
+            <allowedValue label="GET">
+                <value>GET</value>
+            </allowedValue>
+        </field>
+
+        <field id="limit" type="integer" label="Limit">
+            <helpText>
+                Enter number of records to fetch. Max 1000.
+            </helpText>
+            <defaultValue>100</defaultValue>
+        </field>
+
+        <field id="offset" type="integer" label="Offset">
+            <helpText>
+                Enter number of records to skip.
+            </helpText>
+            <defaultValue>0</defaultValue>
+        </field>
+
+        <queryFilter grouping="any" sorting="unbounded">
+            <operator id="eq" label="Equal To"/>
+            <operator id="ne" label="Not Equal To" />
+            <operator id="gt" label="Greater Than" />
+            <operator id="ge" label="Greater Than Or Equal"/>
+            <operator id="lt" label="Less Than"/>
+            <operator id="le" label="Less Than Or Equal"/>
+            <operator id="like" label="Like">
+                <supportedType type="string" />
+            </operator>
+            <operator id="ilike" label="Case Insensitive Like">
+                <supportedType type="string" />
+            </operator>
+            <operator id="expr" label="Raw RQL"/>
+
+            <sortOrder id="asc" label="Ascending" />
+            <sortOrder id="desc" label="Descending" />
+        </queryFilter>
+    </operation>
+
     <operation types="EXECUTE" customTypeId="CREATE" customTypeLabel="Create Resource">
         <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
             <defaultValue>POST</defaultValue>
@@ -47,16 +89,7 @@
         </field>
     </operation>
 
-    <operation types="EXECUTE" customTypeId="UPLOAD" customTypeLabel="Upload Resource File">
-        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
-            <defaultValue>POST</defaultValue>
-            <allowedValue label="POST">
-                <value>POST</value>
-            </allowedValue>
-        </field>
-    </operation>
-
-    <operation types="EXECUTE" customTypeId="UPLOAD_RECON_FILE" customTypeLabel="Upload Reconciliation File">
+    <operation types="EXECUTE" customTypeId="PURCHASE" customTypeLabel="Resource Action - Purchase">
         <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
             <defaultValue>POST</defaultValue>
             <allowedValue label="POST">
@@ -137,15 +170,6 @@
         </field>
     </operation>
 
-    <operation types="EXECUTE" customTypeId="PURCHASE" customTypeLabel="Resource Action - Purchase">
-        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
-            <defaultValue>POST</defaultValue>
-            <allowedValue label="POST">
-                <value>POST</value>
-            </allowedValue>
-        </field>
-    </operation>
-
     <operation types="EXECUTE" customTypeId="CLOSE" customTypeLabel="Resource Action - Close">
         <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
             <defaultValue>POST</defaultValue>
@@ -164,7 +188,7 @@
         </field>
     </operation>
 
-    <operation types="EXECUTE" customTypeId="BULK_CLOSE" customTypeLabel="Resource Action - Bulk Close">
+    <operation types="EXECUTE" customTypeId="SUBMIT" customTypeLabel="Resource Action - Submit">
         <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
             <defaultValue>POST</defaultValue>
             <allowedValue label="POST">
@@ -182,7 +206,7 @@
         </field>
     </operation>
 
-    <operation types="EXECUTE" customTypeId="SUBMIT" customTypeLabel="Resource Action - Submit">
+    <operation types="EXECUTE" customTypeId="RESOLVE" customTypeLabel="Resource Action - Resolve">
         <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
             <defaultValue>POST</defaultValue>
             <allowedValue label="POST">
@@ -191,7 +215,25 @@
         </field>
     </operation>
 
-    <operation types="EXECUTE" customTypeId="RESOLVE" customTypeLabel="Resource Action - Resolve">
+    <operation types="EXECUTE" customTypeId="BULK_CLOSE" customTypeLabel="Resource Action - Bulk Close">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="UPLOAD" customTypeLabel="Upload Resource File">
+        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
+            <defaultValue>POST</defaultValue>
+            <allowedValue label="POST">
+                <value>POST</value>
+            </allowedValue>
+        </field>
+    </operation>
+
+    <operation types="EXECUTE" customTypeId="UPLOAD_RECON_FILE" customTypeLabel="Upload Reconciliation File">
         <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
             <defaultValue>POST</defaultValue>
             <allowedValue label="POST">
@@ -209,45 +251,4 @@
         </field>
     </operation>
 
-    <operation types="QUERY" customTypeId="LIST" customTypeLabel="List Resources">
-        <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
-            <defaultValue>GET</defaultValue>
-            <allowedValue label="GET">
-                <value>GET</value>
-            </allowedValue>
-        </field>
-
-        <field id="limit" type="integer" label="Limit">
-            <helpText>
-                Enter number of records to fetch. Max 1000.
-            </helpText>
-            <defaultValue>100</defaultValue>
-        </field>
-
-        <field id="offset" type="integer" label="Offset">
-            <helpText>
-                Enter number of records to skip.
-            </helpText>
-            <defaultValue>0</defaultValue>
-        </field>
-
-        <queryFilter grouping="any" sorting="unbounded">
-            <operator id="eq" label="Equal To"/>
-            <operator id="ne" label="Not Equal To" />
-            <operator id="gt" label="Greater Than" />
-            <operator id="ge" label="Greater Than Or Equal"/>
-            <operator id="lt" label="Less Than"/>
-            <operator id="le" label="Less Than Or Equal"/>
-            <operator id="like" label="Like">
-                <supportedType type="string" />
-            </operator>
-            <operator id="ilike" label="Case Insensitive Like">
-                <supportedType type="string" />
-            </operator>
-            <operator id="expr" label="Raw RQL"/>
-
-            <sortOrder id="asc" label="Ascending" />
-            <sortOrder id="desc" label="Descending" />
-        </queryFilter>
-    </operation>
 </GenericConnectorDescriptor>
