@@ -1,3 +1,10 @@
+/*
+ * Copyright © 2021 Ingram Micro Inc. All rights reserved.
+ * The software in this package is published under the terms of the Apache-2.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE file.
+ */
+
 package com.cloudblue.connect.operations;
 
 import com.boomi.common.apache.http.response.HttpResult;
@@ -6,12 +13,11 @@ import com.boomi.connector.api.*;
 
 import com.boomi.connector.api.result.ConnectorResult;
 import com.cloudblue.connect.ConnectConnection;
+import com.cloudblue.connect.browser.metadata.Key;
 import com.cloudblue.connect.test.common.BaseFilterTest;
 import com.cloudblue.connect.test.utils.ConnectTestContext;
 
-import com.cloudblue.connect.utils.SchemaUtil;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.junit.Test;
@@ -23,8 +29,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -50,9 +54,23 @@ public class QueryOperationTest extends BaseFilterTest {
         when(context.getOperationProperties()).thenReturn(propertyMap);
     }
 
-    private void mockContextProperties() {
+    private void mockDynamicOperationProperties(FilterData data, boolean mockDynamicProperty) {
+        DynamicPropertyMap propertyMap = mock(DynamicPropertyMap.class);
+
+        if (mockDynamicProperty)
+            when(propertyMap.getProperty(Key.PRODUCT_ID.getField(), null)).thenReturn("PRD-000-000");
+
+        when(data.getDynamicOperationProperties()).thenReturn(propertyMap);
+    }
+
+    private void mockContextPropertiesForRequest() {
         when(context.getObjectTypeId()).thenReturn("REQUEST");
-        when(context.getCustomOperationType()).thenReturn("GET");
+        when(context.getCustomOperationType()).thenReturn("LIST");
+    }
+
+    private void mockContextPropertiesForProductItem() {
+        when(context.getObjectTypeId()).thenReturn("PRODUCT_ITEM");
+        when(context.getCustomOperationType()).thenReturn("LIST");
     }
 
     private void mockConnectionProperties() {
@@ -65,7 +83,18 @@ public class QueryOperationTest extends BaseFilterTest {
     private void mockForRequest() {
         mockOperationProperties();
         mockConnectionProperties();
-        mockContextProperties();
+        mockContextPropertiesForRequest();
+    }
+
+    private FilterData mockForProductItem(boolean mockDynamicProperty) {
+        FilterData data = mock(FilterData.class);
+
+        mockOperationProperties();
+        mockConnectionProperties();
+        mockContextPropertiesForProductItem();
+        mockDynamicOperationProperties(data, mockDynamicProperty);
+
+        return data;
     }
 
     private void mockRestCall() throws IOException {
@@ -93,7 +122,7 @@ public class QueryOperationTest extends BaseFilterTest {
     @Test
     public void getPathTest() {
         mockOperationProperties();
-        mockContextProperties();
+        mockContextPropertiesForRequest();
 
         FilterData filterData = this.getFilterData(
                 new QueryFilter()
@@ -120,9 +149,35 @@ public class QueryOperationTest extends BaseFilterTest {
     }
 
     @Test
+    public void getPathForSubCollectionTest() {
+        FilterData data = mockForProductItem(true);
+
+        String path = operation.getPath(data);
+
+        assertEquals(
+                "products/PRD-000-000/items?limit=100" +
+                        "&offset=0",
+                path);
+    }
+
+    @Test(expected = ConnectorException.class)
+    public void getPathForSubCollectionTestErrorForNull() {
+        FilterData data = mockForProductItem(false);
+
+        operation.getPath(data);
+    }
+
+    @Test(expected = ConnectorException.class)
+    public void getPathForSubCollectionTestErrorForBlank() {
+        FilterData data = mockForProductItem(false);
+        when(data.getDynamicOperationProperties().getProperty(Key.PRODUCT_ID.getField(), null)).thenReturn("");
+        operation.getPath(data);
+    }
+
+    @Test
     public void getPathNullDataTest() {
         mockOperationProperties();
-        mockContextProperties();
+        mockContextPropertiesForRequest();
 
         String path = operation.getPath(null);
 

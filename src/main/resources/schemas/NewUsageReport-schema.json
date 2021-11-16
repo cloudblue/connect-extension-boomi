@@ -1,0 +1,49 @@
+{
+  "$schema" : "http://json-schema.org/draft-07/schema#",
+  "type" : "object",
+  "properties" : {
+    "contract" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      },
+      "required": ["id"]
+    },
+    "currency" : {
+      "type" : "string"
+    },
+    "description" : {
+      "type" : "string"
+    },
+    "external_id" : {
+      "type" : "string"
+    },
+    "product" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      },
+      "required": ["id"]
+    },
+    "name" : {
+      "type" : "string"
+    },
+    "period" : {
+      "type" : "object",
+      "properties" : {
+        "from" : {
+          "type" : "string"
+        },
+        "to" : {
+          "type" : "string"
+        }
+      },
+      "required": ["from", "to"]
+    }
+  },
+  "required": ["contract", "product", "name"]
+}

@@ -1,10 +1,16 @@
+/*
+ * Copyright © 2021 Ingram Micro Inc. All rights reserved.
+ * The software in this package is published under the terms of the Apache-2.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE file.
+ */
+
 package com.cloudblue.connect.browser;
 
 import com.boomi.connector.api.*;
 
 import com.cloudblue.connect.test.utils.ConnectTestContext;
 import com.cloudblue.connect.utils.FileUtil;
-import com.cloudblue.connect.utils.SchemaUtil;
 
 import org.junit.Test;
 
@@ -29,61 +35,41 @@ public class ConnectBrowserTest {
     public void testGetOperationObjectTypes() {
         when(context.getCustomOperationType()).thenReturn("GET");
         List<ObjectType> types = browser.getObjectTypes().getTypes();
-        assertEquals(6, types.size());
+        assertEquals(20, types.size());
     }
 
     @Test
     public void testExecuteOperationObjectTypes() {
         when(context.getCustomOperationType()).thenReturn("DELETE");
         List<ObjectType> types = browser.getObjectTypes().getTypes();
-        assertEquals(0, types.size());
+        assertEquals(1, types.size());
     }
 
     @Test
-    public void testExecuteOperationObjectDefinitionsForGet() {
-        when(context.getOperationType()).thenReturn(OperationType.EXECUTE);
-        when(context.getCustomOperationType()).thenReturn("GET");
-        ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
-                "REQUEST", Arrays.asList(
-                        ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
-        assertEquals(2, objectDefinitions.getDefinitions().size());
-    }
+    public void testExecuteOperationObjectDefinitions() {
+        String[] actions = {
+                "GET", "PENDING", "CREATE",
+                "DELETE", "CREATE", "INQUIRE",
+                "GET", "UPLOAD", "DOWNLOAD",
+                "GET"
+        };
+        String[] resources = {
+                "REQUEST", "REQUEST", "PURCHASE_REQUEST",
+                "REQUEST", "REQUEST", "TIER_CONFIG_REQUEST",
+                "PRODUCT_ITEM", "USAGE_RECONCILIATION", "RECONCILIATION_PROCESSED_FILE",
+                "PRODUCT_ACTION_LINK"
+        };
+        int[] expectedDefinitions = {1, 1, 2, 0, 0, 1, 1, 1, 1, 1};
+        int[] expectedOperationFields = {1, 1, 0, 0, 0, 1, 2, 2, 1, 3};
 
-    @Test
-    public void testExecuteOperationObjectDefinitionsForCreate() {
-        when(context.getOperationType()).thenReturn(OperationType.EXECUTE);
-        when(context.getCustomOperationType()).thenReturn("CREATE");
-        ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
-                "REQUEST", Arrays.asList(
-                        ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
-        assertEquals(2, objectDefinitions.getDefinitions().size());
-    }
-
-    @Test
-    public void testUpdateOperationObjectDefinitionsForCreate() {
-        when(context.getOperationType()).thenReturn(OperationType.UPDATE);
-        when(context.getCustomOperationType()).thenReturn("DELETE");
-        ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
-                "REQUEST", Arrays.asList(
-                        ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
-        assertEquals(0, objectDefinitions.getDefinitions().size());
-    }
-
-    @Test
-    public void testGetObjectDefinitionsInputSchemaNotPresent() {
-        when(context.getCustomOperationType()).thenReturn("CREATE");
-
-        OperationSchemaInfo schemaInfo = new OperationSchemaInfo();
-
-        try (MockedStatic<SchemaUtil> schemaUtilMockedStatic = mockStatic(SchemaUtil.class)) {
-            schemaUtilMockedStatic.when(
-                    () -> SchemaUtil.getSchemaInfo("REQUEST", "CREATE")
-            ).thenReturn(schemaInfo);
-
+        for (int count = 0; count < actions.length; count++) {
+            when(context.getOperationType()).thenReturn(OperationType.EXECUTE);
+            when(context.getCustomOperationType()).thenReturn(actions[count]);
             ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
-                    "REQUEST", Arrays.asList(
+                    resources[count], Arrays.asList(
                             ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
-            assertEquals(0, objectDefinitions.getDefinitions().size());
+            assertEquals(expectedDefinitions[count], objectDefinitions.getDefinitions().size());
+            assertEquals(expectedOperationFields[count], objectDefinitions.getOperationFields().size());
         }
     }
 
@@ -91,22 +77,15 @@ public class ConnectBrowserTest {
     public void testGetObjectDefinitionsFailed() {
         when(context.getCustomOperationType()).thenReturn("CREATE");
 
-        OperationSchemaInfo schemaInfo = new OperationSchemaInfo()
-                .input("Asset-schema.json");
-
         try (
-                MockedStatic<SchemaUtil> schemaUtilMockedStatic = mockStatic(SchemaUtil.class);
                 MockedStatic<FileUtil> fileUtilMockedStatic = mockStatic(FileUtil.class)
         ) {
-            schemaUtilMockedStatic.when(
-                    () -> SchemaUtil.getSchemaInfo("REQUEST", "CREATE")
-            ).thenReturn(schemaInfo);
 
             fileUtilMockedStatic.when(
                     () -> FileUtil.readJsonSchema(any())
             ).thenThrow(IOException.class);
 
-            browser.getObjectDefinitions("REQUEST", Arrays.asList(
+            browser.getObjectDefinitions("PURCHASE_REQUEST", Arrays.asList(
                             ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
         }
     }

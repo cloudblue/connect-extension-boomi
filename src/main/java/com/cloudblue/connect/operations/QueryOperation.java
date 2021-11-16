@@ -1,14 +1,25 @@
+/*
+ * Copyright © 2021 Ingram Micro Inc. All rights reserved.
+ * The software in this package is published under the terms of the Apache-2.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE file.
+ */
+
 package com.cloudblue.connect.operations;
 
 import com.boomi.common.apache.http.response.HttpResult;
 import com.boomi.common.rest.RestClient;
 import com.boomi.connector.api.*;
 import com.boomi.connector.util.BaseQueryOperation;
-
 import com.boomi.util.URLUtil;
+import com.boomi.util.json.splitter.JsonRootArraySplitter;
+
 import com.cloudblue.connect.ConnectConnection;
-import com.cloudblue.connect.browser.ResourceType;
+import com.cloudblue.connect.browser.metadata.Metadata;
+import com.cloudblue.connect.browser.metadata.MetadataUtil;
+import com.cloudblue.connect.utils.Common;
 import com.cloudblue.connect.utils.FilterUtil;
+
 import org.apache.http.client.methods.RequestBuilder;
 
 import java.net.MalformedURLException;
@@ -37,7 +48,13 @@ public class QueryOperation extends BaseQueryOperation {
             }
 
             for (HttpResult result : results) {
-                ResponseUtil.addResult(operationResponse, input, result);
+                for (Payload payload : result.getPayloads()) {
+                    ResponseUtil.addSplitSuccess(
+                            operationResponse,
+                            input,
+                            result.getStatus().getStatusCode(),
+                            new JsonRootArraySplitter(payload.readFrom()));
+                }
             }
         } catch (Exception e) {
             ResponseUtil.addExceptionFailure(operationResponse, input, e);
@@ -51,9 +68,16 @@ public class QueryOperation extends BaseQueryOperation {
     }
 
     protected String getPath(FilterData data) {
-        ResourceType resourceType = ResourceType.valueOf(
-                getContext().getObjectTypeId().toUpperCase());
-        String basePath = resourceType.getPath();
+        Metadata metadata = MetadataUtil.getMetadata(getContext().getObjectTypeId());
+
+        String parentIdValue = null;
+
+        if (metadata.isSubCollection()) {
+            parentIdValue = Common.getDynamicPropertyValue(
+                    data.getDynamicOperationProperties(),
+                    metadata.getParentId().getField());
+        }
+        String basePath = metadata.getPath(null, parentIdValue, null, null);
 
         String filterQueryString;
 

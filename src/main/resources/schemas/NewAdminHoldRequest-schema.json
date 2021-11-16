@@ -1,0 +1,19 @@
+{
+  "$schema" : "http://json-schema.org/draft-07/schema#",
+  "type" : "object",
+  "properties" : {
+    "asset" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      },
+      "required": ["id"]
+    },
+    "type" : {
+      "type" : "string",
+      "enum" : [ "suspend", "resume", "cancel" ]
+    }
+  }
+}

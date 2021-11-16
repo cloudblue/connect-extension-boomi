@@ -22,13 +22,13 @@
               "value_error" : {
                 "type" : "string"
               }
-            }
+            },
+            "required": ["id"]
           }
         }
-      }
-    },
-    "id" : {
-      "type" : "string"
+      },
+      "required": ["params"]
     }
-  }
+  },
+  "required": ["asset"]
 }

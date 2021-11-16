@@ -298,253 +298,6 @@
     "hub" : {
       "type" : "object",
       "properties" : {
-        "company" : {
-          "type" : "object",
-          "properties" : {
-            "id" : {
-              "type" : "string"
-            },
-            "name" : {
-              "type" : "string"
-            }
-          }
-        },
-        "description" : {
-          "type" : "string"
-        },
-        "events" : {
-          "type" : "object",
-          "properties" : {
-            "accepted" : {
-              "type" : "object",
-              "properties" : {
-                "at" : {
-                  "type" : "string"
-                },
-                "by" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "string"
-                    },
-                    "name" : {
-                      "type" : "string"
-                    }
-                  }
-                }
-              }
-            },
-            "closed" : {
-              "type" : "object",
-              "properties" : {
-                "at" : {
-                  "type" : "string"
-                },
-                "by" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "string"
-                    },
-                    "name" : {
-                      "type" : "string"
-                    }
-                  }
-                }
-              }
-            },
-            "created" : {
-              "type" : "object",
-              "properties" : {
-                "at" : {
-                  "type" : "string"
-                },
-                "by" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "string"
-                    },
-                    "name" : {
-                      "type" : "string"
-                    }
-                  }
-                }
-              }
-            },
-            "deleted" : {
-              "type" : "object",
-              "properties" : {
-                "at" : {
-                  "type" : "string"
-                },
-                "by" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "string"
-                    },
-                    "name" : {
-                      "type" : "string"
-                    }
-                  }
-                }
-              }
-            },
-            "inquiring" : {
-              "type" : "object",
-              "properties" : {
-                "at" : {
-                  "type" : "string"
-                },
-                "by" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "string"
-                    },
-                    "name" : {
-                      "type" : "string"
-                    }
-                  }
-                }
-              }
-            },
-            "last_reported" : {
-              "type" : "object",
-              "properties" : {
-                "at" : {
-                  "type" : "string"
-                },
-                "by" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "string"
-                    },
-                    "name" : {
-                      "type" : "string"
-                    }
-                  }
-                }
-              }
-            },
-            "pending" : {
-              "type" : "object",
-              "properties" : {
-                "at" : {
-                  "type" : "string"
-                },
-                "by" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "string"
-                    },
-                    "name" : {
-                      "type" : "string"
-                    }
-                  }
-                }
-              }
-            },
-            "rejected" : {
-              "type" : "object",
-              "properties" : {
-                "at" : {
-                  "type" : "string"
-                },
-                "by" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "string"
-                    },
-                    "name" : {
-                      "type" : "string"
-                    }
-                  }
-                }
-              }
-            },
-            "resolved" : {
-              "type" : "object",
-              "properties" : {
-                "at" : {
-                  "type" : "string"
-                },
-                "by" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "string"
-                    },
-                    "name" : {
-                      "type" : "string"
-                    }
-                  }
-                }
-              }
-            },
-            "submitted" : {
-              "type" : "object",
-              "properties" : {
-                "at" : {
-                  "type" : "string"
-                },
-                "by" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "string"
-                    },
-                    "name" : {
-                      "type" : "string"
-                    }
-                  }
-                }
-              }
-            },
-            "updated" : {
-              "type" : "object",
-              "properties" : {
-                "at" : {
-                  "type" : "string"
-                },
-                "by" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "string"
-                    },
-                    "name" : {
-                      "type" : "string"
-                    }
-                  }
-                }
-              }
-            },
-            "uploaded" : {
-              "type" : "object",
-              "properties" : {
-                "at" : {
-                  "type" : "string"
-                },
-                "by" : {
-                  "type" : "object",
-                  "properties" : {
-                    "id" : {
-                      "type" : "string"
-                    },
-                    "name" : {
-                      "type" : "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
         "id" : {
           "type" : "string"
         },
@@ -562,18 +315,6 @@
     "owner" : {
       "type" : "object",
       "properties" : {
-        "brand" : {
-          "type" : "string"
-        },
-        "description" : {
-          "type" : "string"
-        },
-        "external_id" : {
-          "type" : "string"
-        },
-        "headquarters" : {
-          "type" : "string"
-        },
         "icon" : {
           "type" : "string"
         },
@@ -582,19 +323,6 @@
         },
         "name" : {
           "type" : "string"
-        },
-        "overview" : {
-          "type" : "string"
-        },
-        "type" : {
-          "type" : "string",
-          "enum" : [ "VENDOR", "PROVIDER" ]
-        },
-        "websites" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
         }
       }
     },
@@ -616,10 +344,11 @@
       "type" : "string"
     },
     "type" : {
-      "type" : "string"
+      "type" : "string",
+      "enum" : [ "customer", "reseller" ]
     },
     "version" : {
-      "type" : "string"
+      "type" : "integer"
     }
   }
 }

@@ -291,7 +291,7 @@
     },
     "type" : {
       "type" : "string",
-      "enum" : [ "PURCHASE", "CHANGE", "SUSPEND", "RESUME", "CANCEL", "ADJUSTMENT", "PROVIDER", "VENDOR" ]
+      "enum" : [ "purchase", "change", "suspend", "resume", "cancel", "adjustment", "provider", "vendor" ]
     }
   }
 }
