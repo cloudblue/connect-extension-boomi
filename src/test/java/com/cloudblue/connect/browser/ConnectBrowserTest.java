@@ -47,9 +47,20 @@ public class ConnectBrowserTest {
 
     @Test
     public void testExecuteOperationObjectDefinitions() {
-        String[] actions = {"GET", "PENDING", "CREATE", "DELETE", "CREATE"};
-        String[] resources = {"REQUEST", "REQUEST", "PURCHASE_REQUEST", "REQUEST", "REQUEST"};
-        int[] expected = {1, 1, 2, 0, 0};
+        String[] actions = {
+                "GET", "PENDING", "CREATE",
+                "DELETE", "CREATE", "INQUIRE",
+                "GET", "UPLOAD", "DOWNLOAD",
+                "GET"
+        };
+        String[] resources = {
+                "REQUEST", "REQUEST", "PURCHASE_REQUEST",
+                "REQUEST", "REQUEST", "TIER_CONFIG_REQUEST",
+                "PRODUCT_ITEM", "USAGE_RECONCILIATION", "RECONCILIATION_PROCESSED_FILE",
+                "PRODUCT_ACTION_LINK"
+        };
+        int[] expectedDefinitions = {1, 1, 2, 0, 0, 1, 1, 1, 1, 1};
+        int[] expectedOperationFields = {1, 1, 0, 0, 0, 1, 2, 2, 1, 3};
 
         for (int count = 0; count < actions.length; count++) {
             when(context.getOperationType()).thenReturn(OperationType.EXECUTE);
@@ -57,7 +68,8 @@ public class ConnectBrowserTest {
             ObjectDefinitions objectDefinitions = browser.getObjectDefinitions(
                     resources[count], Arrays.asList(
                             ObjectDefinitionRole.INPUT, ObjectDefinitionRole.OUTPUT));
-            assertEquals(expected[count], objectDefinitions.getDefinitions().size());
+            assertEquals(expectedDefinitions[count], objectDefinitions.getDefinitions().size());
+            assertEquals(expectedOperationFields[count], objectDefinitions.getOperationFields().size());
         }
     }
 

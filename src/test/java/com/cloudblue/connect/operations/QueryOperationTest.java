@@ -13,6 +13,7 @@ import com.boomi.connector.api.*;
 
 import com.boomi.connector.api.result.ConnectorResult;
 import com.cloudblue.connect.ConnectConnection;
+import com.cloudblue.connect.browser.metadata.Key;
 import com.cloudblue.connect.test.common.BaseFilterTest;
 import com.cloudblue.connect.test.utils.ConnectTestContext;
 
@@ -53,9 +54,23 @@ public class QueryOperationTest extends BaseFilterTest {
         when(context.getOperationProperties()).thenReturn(propertyMap);
     }
 
-    private void mockContextProperties() {
+    private void mockDynamicOperationProperties(FilterData data, boolean mockDynamicProperty) {
+        DynamicPropertyMap propertyMap = mock(DynamicPropertyMap.class);
+
+        if (mockDynamicProperty)
+            when(propertyMap.getProperty(Key.PRODUCT_ID.getField(), null)).thenReturn("PRD-000-000");
+
+        when(data.getDynamicOperationProperties()).thenReturn(propertyMap);
+    }
+
+    private void mockContextPropertiesForRequest() {
         when(context.getObjectTypeId()).thenReturn("REQUEST");
-        when(context.getCustomOperationType()).thenReturn("GET");
+        when(context.getCustomOperationType()).thenReturn("LIST");
+    }
+
+    private void mockContextPropertiesForProductItem() {
+        when(context.getObjectTypeId()).thenReturn("PRODUCT_ITEM");
+        when(context.getCustomOperationType()).thenReturn("LIST");
     }
 
     private void mockConnectionProperties() {
@@ -68,7 +83,18 @@ public class QueryOperationTest extends BaseFilterTest {
     private void mockForRequest() {
         mockOperationProperties();
         mockConnectionProperties();
-        mockContextProperties();
+        mockContextPropertiesForRequest();
+    }
+
+    private FilterData mockForProductItem(boolean mockDynamicProperty) {
+        FilterData data = mock(FilterData.class);
+
+        mockOperationProperties();
+        mockConnectionProperties();
+        mockContextPropertiesForProductItem();
+        mockDynamicOperationProperties(data, mockDynamicProperty);
+
+        return data;
     }
 
     private void mockRestCall() throws IOException {
@@ -96,7 +122,7 @@ public class QueryOperationTest extends BaseFilterTest {
     @Test
     public void getPathTest() {
         mockOperationProperties();
-        mockContextProperties();
+        mockContextPropertiesForRequest();
 
         FilterData filterData = this.getFilterData(
                 new QueryFilter()
@@ -123,9 +149,35 @@ public class QueryOperationTest extends BaseFilterTest {
     }
 
     @Test
+    public void getPathForSubCollectionTest() {
+        FilterData data = mockForProductItem(true);
+
+        String path = operation.getPath(data);
+
+        assertEquals(
+                "products/PRD-000-000/items?limit=100" +
+                        "&offset=0",
+                path);
+    }
+
+    @Test(expected = ConnectorException.class)
+    public void getPathForSubCollectionTestErrorForNull() {
+        FilterData data = mockForProductItem(false);
+
+        operation.getPath(data);
+    }
+
+    @Test(expected = ConnectorException.class)
+    public void getPathForSubCollectionTestErrorForBlank() {
+        FilterData data = mockForProductItem(false);
+        when(data.getDynamicOperationProperties().getProperty(Key.PRODUCT_ID.getField(), null)).thenReturn("");
+        operation.getPath(data);
+    }
+
+    @Test
     public void getPathNullDataTest() {
         mockOperationProperties();
-        mockContextProperties();
+        mockContextPropertiesForRequest();
 
         String path = operation.getPath(null);
 

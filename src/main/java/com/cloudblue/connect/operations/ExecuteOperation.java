@@ -44,28 +44,33 @@ public class ExecuteOperation extends RestOperation {
 
         String parentIdValue = null;
         String actionUrl = null;
+        Map<String, String> filters = new HashMap<>();
+
+        for (Key filterKey : actionMetadata.getFilters()) {
+            filters.put(filterKey.getField(),
+                    Common.getDynamicPropertyValue(
+                            data.getDynamicOperationProperties(),
+                            filterKey.getField()));
+        }
 
         if (metadata.isSubCollection()) {
             parentIdValue = Common.getDynamicPropertyValue(
                     data.getDynamicOperationProperties(),
-                    metadata.getParentId().getField(),
-                    true);
+                    metadata.getParentId().getField());
         }
 
         if (actionMetadata.isCustomAction()) {
-            actionUrl = actionMetadata.getAction() == null || actionMetadata.getAction().isEmpty()
-                    ? action.name().toLowerCase() : actionMetadata.getAction();
+            actionUrl = actionMetadata.getAction() == null? action.name().toLowerCase() : actionMetadata.getAction();
         }
 
         if (action.isDetailOperation() && !actionMetadata.isCollectionAction()) {
             String idValue = Common.getDynamicPropertyValue(
                     data.getDynamicOperationProperties(),
-                    metadata.getId().getField(),
-                    true);
+                    metadata.getId().getField());
 
-            return metadata.getPath(idValue, parentIdValue, actionUrl);
+            return metadata.getPath(idValue, parentIdValue, actionUrl, filters);
         } else {
-            return metadata.getPath(null, parentIdValue, actionUrl);
+            return metadata.getPath(null, parentIdValue, actionUrl, filters);
         }
     }
 
@@ -113,8 +118,7 @@ public class ExecuteOperation extends RestOperation {
 
             String file  = Common.getDynamicPropertyValue(
                     data.getDynamicOperationProperties(),
-                    actionMetadata.getFileName(),
-                    true);
+                    actionMetadata.getFileName());
 
             builder.addBinaryBody(
                     actionMetadata.getFileName(),
@@ -125,8 +129,7 @@ public class ExecuteOperation extends RestOperation {
             for (Key key : actionMetadata.getFormAttributes()) {
                 String keyValue  = Common.getDynamicPropertyValue(
                         data.getDynamicOperationProperties(),
-                        key.getField(),
-                        true);
+                        key.getField());
                 builder.addTextBody(key.getField(), keyValue);
             }
 

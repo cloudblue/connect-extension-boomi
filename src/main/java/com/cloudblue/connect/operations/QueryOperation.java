@@ -75,10 +75,9 @@ public class QueryOperation extends BaseQueryOperation {
         if (metadata.isSubCollection()) {
             parentIdValue = Common.getDynamicPropertyValue(
                     data.getDynamicOperationProperties(),
-                    metadata.getParentId().getField(),
-                    true);
+                    metadata.getParentId().getField());
         }
-        String basePath = metadata.getPath(null, parentIdValue, null);
+        String basePath = metadata.getPath(null, parentIdValue, null, null);
 
         String filterQueryString;
 

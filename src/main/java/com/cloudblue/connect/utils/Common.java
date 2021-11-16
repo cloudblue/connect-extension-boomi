@@ -16,13 +16,12 @@ public class Common {
 
     public static String getDynamicPropertyValue(
             DynamicPropertyMap propertyMap,
-            String property,
-            boolean required) {
+            String property) {
         String value;
 
         value = propertyMap.getProperty(property, null);
 
-        if (required && (value == null || value.isEmpty())) {
+        if (value == null || value.isEmpty()) {
             throw new ConnectorException(
                     String.format("Value for dynamic property %s is required.", property));
         }

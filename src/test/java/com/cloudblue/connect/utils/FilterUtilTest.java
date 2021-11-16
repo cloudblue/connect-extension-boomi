@@ -16,6 +16,7 @@ import com.cloudblue.connect.test.common.BaseFilterTest;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

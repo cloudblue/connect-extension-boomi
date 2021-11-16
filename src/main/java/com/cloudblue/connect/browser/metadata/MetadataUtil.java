@@ -7,8 +7,8 @@
 
 package com.cloudblue.connect.browser.metadata;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.EnumMap;
+import java.util.Map;
 
 import static com.cloudblue.connect.client.constants.APIConstants.CollectionKeys.*;
 import static com.cloudblue.connect.browser.metadata.Key.*;
@@ -463,31 +463,6 @@ public class MetadataUtil {
     }
 
     private MetadataUtil() {}
-
-    private static List<String> getSpecificResourceAction(String resourceType, Action[] allActions) {
-        ResourceType type = ResourceType.valueOf(resourceType.toUpperCase());
-        Metadata collectionInfo = METADATA_STORE.get(type);
-
-        if (collectionInfo == null || collectionInfo.getActionMetadata().isEmpty()) {
-            return new ArrayList<>();
-        } else {
-            return collectionInfo.getActionMetadata()
-                    .keySet()
-                    .stream()
-                    .filter(action -> Arrays.stream(allActions)
-                            .anyMatch(abstractAction -> action == abstractAction))
-                    .map(Enum::name)
-                    .collect(Collectors.toList());
-        }
-    }
-
-    public static List<String> getDownloadActions(String resourceType) {
-        return getSpecificResourceAction(resourceType, Action.getDownloadActions());
-    }
-
-    public static List<String> getUploadActions(String resourceType) {
-        return getSpecificResourceAction(resourceType, Action.getUploadActions());
-    }
 
     public static Metadata getMetadata(String resourceType) {
         ResourceType type = ResourceType.valueOf(resourceType.toUpperCase());

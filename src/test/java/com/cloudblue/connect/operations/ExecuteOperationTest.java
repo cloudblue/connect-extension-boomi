@@ -7,18 +7,30 @@
 
 package com.cloudblue.connect.operations;
 
+import com.boomi.common.apache.http.entity.RepeatableInputStreamEntity;
 import com.boomi.connector.api.DynamicPropertyMap;
 import com.boomi.connector.api.ObjectData;
 
 import com.cloudblue.connect.ConnectConnection;
 import com.cloudblue.connect.test.utils.ConnectTestContext;
 
+import org.apache.http.HttpEntity;
+
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -75,6 +87,59 @@ public class ExecuteOperationTest {
         String path = operation.getPath(objectData);
 
         assertEquals("usage/files/UF-2021-08-0000-0000/upload", path);
+    }
+
+    @Test
+    public void testGetPathForSubCollectionAction() {
+
+        when(context.getObjectTypeId()).thenReturn("PRODUCT_ITEM");
+        when(context.getCustomOperationType()).thenReturn("GET");
+
+        DynamicPropertyMap propertyMap = mock(DynamicPropertyMap.class);
+        when(propertyMap.getProperty("product_id", null)).thenReturn("PRD-000-000-000");
+        when(propertyMap.getProperty("item_id", null)).thenReturn("PRD-000-000-000-0001");
+
+        ObjectData objectData = mock(ObjectData.class);
+        when(objectData.getDynamicOperationProperties()).thenReturn(propertyMap);
+
+        String path = operation.getPath(objectData);
+
+        assertEquals("products/PRD-000-000-000/items/PRD-000-000-000-0001", path);
+    }
+
+    @Test
+    public void testGetPathForCustomAction() {
+
+        when(context.getObjectTypeId()).thenReturn("USAGE_RECORD");
+        when(context.getCustomOperationType()).thenReturn("BULK_CLOSE");
+
+        DynamicPropertyMap propertyMap = mock(DynamicPropertyMap.class);
+
+        ObjectData objectData = mock(ObjectData.class);
+        when(objectData.getDynamicOperationProperties()).thenReturn(propertyMap);
+
+        String path = operation.getPath(objectData);
+
+        assertEquals("usage/records/close-records", path);
+    }
+
+    @Test
+    public void testGetPathForFilters() {
+
+        when(context.getObjectTypeId()).thenReturn("PRODUCT_ACTION_LINK");
+        when(context.getCustomOperationType()).thenReturn("GET");
+
+        DynamicPropertyMap propertyMap = mock(DynamicPropertyMap.class);
+        when(propertyMap.getProperty("asset_id", null)).thenReturn("AS-000-000-000");
+        when(propertyMap.getProperty("action_id", null)).thenReturn("AC-000-000-000");
+        when(propertyMap.getProperty("product_id", null)).thenReturn("PRD-000-000-000");
+
+        ObjectData objectData = mock(ObjectData.class);
+        when(objectData.getDynamicOperationProperties()).thenReturn(propertyMap);
+
+        String path = operation.getPath(objectData);
+
+        assertEquals("products/PRD-000-000-000/actions/AC-000-000-000?asset_id=AS-000-000-000", path);
     }
 
     @Test
@@ -146,5 +211,88 @@ public class ExecuteOperationTest {
         }
 
         assertEquals(0, counter);
+    }
+
+    @Test
+    public void testGetHeadersForUpload() {
+        when(context.getObjectTypeId()).thenReturn("USAGE_REPORT");
+        when(context.getCustomOperationType()).thenReturn("UPLOAD");
+
+        Iterable<Map.Entry<String, String>> headers = operation.getHeaders(null);
+
+        int counter = 0;
+
+        for (Map.Entry<String, String> header : headers) {
+            counter++;
+        }
+
+        assertEquals(0, counter);
+    }
+
+    @Test
+    public void testGetEntityEmpty() throws IOException {
+
+        when(context.getObjectTypeId()).thenReturn("USAGE_RECORD");
+        when(context.getCustomOperationType()).thenReturn("BULK_CLOSE");
+
+        ObjectData objectData = mock(ObjectData.class);
+        when(objectData.getDataSize()).thenReturn(0L);
+
+        assertNull(operation.getEntity(objectData));
+    }
+
+    @Test
+    public void testGetEntityJsonEntity() throws IOException {
+
+        when(context.getObjectTypeId()).thenReturn("USAGE_RECORD");
+        when(context.getCustomOperationType()).thenReturn("CLOSE");
+
+        InputStream inputStream = new ByteArrayInputStream("Test".getBytes(StandardCharsets.UTF_8));
+
+        ObjectData objectData = mock(ObjectData.class);
+        when(objectData.getData()).thenReturn(inputStream);
+        when(objectData.getDataSize()).thenReturn(4L);
+
+        HttpEntity httpEntity = operation.getEntity(objectData);
+
+        assertTrue(httpEntity instanceof RepeatableInputStreamEntity);
+    }
+
+    @Test
+    public void testGetEntityFileUploadEntity() throws IOException {
+
+        when(context.getObjectTypeId()).thenReturn("USAGE_RECONCILIATION");
+        when(context.getCustomOperationType()).thenReturn("UPLOAD");
+
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(Objects.requireNonNull(
+                classLoader.getResource("connector-config.xml")).getFile());
+
+        DynamicPropertyMap propertyMap = mock(DynamicPropertyMap.class);
+        when(propertyMap.getProperty("recon_file", null)).thenReturn(file.getAbsolutePath());
+        when(propertyMap.getProperty("upload_note", null)).thenReturn("Test Upload");
+
+        ObjectData objectData = mock(ObjectData.class);
+        when(objectData.getDynamicOperationProperties()).thenReturn(propertyMap);
+
+        HttpEntity httpEntity = operation.getEntity(objectData);
+
+        assertTrue(httpEntity.getContentType().getValue().startsWith("multipart/form-data"));
+    }
+
+    @Test
+    public void testIsRequestBodyRequiredTrue() {
+        when(context.getObjectTypeId()).thenReturn("USAGE_RECORD");
+        when(context.getCustomOperationType()).thenReturn("CLOSE");
+
+        assertTrue(operation.isRequestBodyRequired());
+    }
+
+    @Test
+    public void testIsRequestBodyRequiredFalse() {
+        when(context.getObjectTypeId()).thenReturn("USAGE_RECORD");
+        when(context.getCustomOperationType()).thenReturn("GET");
+
+        assertFalse(operation.isRequestBodyRequired());
     }
 }

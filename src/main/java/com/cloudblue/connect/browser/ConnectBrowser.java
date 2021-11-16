@@ -58,7 +58,6 @@ public class ConnectBrowser extends BaseBrowser {
     }
 
     private void addOutputDefinition(ObjectDefinitions definitions,
-                                     Metadata metadata,
                                      ActionMetadata actionMetadata) throws IOException {
         ObjectDefinition objectDefinition = new ObjectDefinition();
 
@@ -66,14 +65,7 @@ public class ConnectBrowser extends BaseBrowser {
             definitions.getDefinitions().add(objectDefinition
                     .withInputType(ContentType.NONE)
                     .withOutputType(ContentType.BINARY));
-        } else if (actionMetadata.getOutput() == null && metadata.getSchema() != null) {
-            definitions.getDefinitions().add(objectDefinition
-                    .withInputType(ContentType.NONE)
-                    .withOutputType(ContentType.JSON)
-                    .withJsonSchema(FileUtil.readJsonSchema(metadata.getSchema()))
-                    .withElementName(""));
-        } else if (actionMetadata.getOutput() != null
-                && !actionMetadata.getOutput().equals(MetadataUtil.NO_OUTPUT_SCHEMA)) {
+        } else if (!actionMetadata.getOutput().equals(MetadataUtil.NO_OUTPUT_SCHEMA)) {
             definitions.getDefinitions().add(objectDefinition
                     .withInputType(ContentType.NONE)
                     .withOutputType(ContentType.JSON)
@@ -110,6 +102,10 @@ public class ConnectBrowser extends BaseBrowser {
             addField(definitions, metadata.getId());
         }
 
+        for (Key filter : actionMetadata.getFilters()) {
+            addField(definitions, filter);
+        }
+
         if (isUploadAction()) {
             addField(definitions, actionMetadata.getFileName(), "File");
 
@@ -133,7 +129,7 @@ public class ConnectBrowser extends BaseBrowser {
                     if (ObjectDefinitionRole.INPUT == role && actionMetadata.getInput() != null) {
                         addInputDefinition(definitions, actionMetadata);
                     } else if (ObjectDefinitionRole.OUTPUT == role) {
-                        addOutputDefinition(definitions, metadata, actionMetadata);
+                        addOutputDefinition(definitions, actionMetadata);
                     }
                 }
 

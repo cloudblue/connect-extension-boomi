@@ -70,14 +70,13 @@ public class Metadata {
         return this;
     }
 
-    public Metadata includeListAction(Key... filters) {
+    public Metadata includeListAction() {
         this.addActionMetaData(Action.LIST,
                 new ActionMetadata()
-                        .output(schema)
+                        .output(getSchema())
                         .customAction(false)
                         .collectionAction(true)
-                        .includePayload(false)
-                        .filter(filters));
+                        .includePayload(false));
 
         return this;
     }
@@ -130,14 +129,27 @@ public class Metadata {
             return false;
     }
 
-    public String getPath(String id, String parentId, String action) {
+    private String resolveFilters(Map<String, String> filters) {
+        List<String> filterParts = new ArrayList<>();
+
+        for(Map.Entry<String, String> filter: filters.entrySet()) {
+            filterParts.add(String.format("%s=%s", filter.getKey(), filter.getValue()));
+        }
+
+        String filterString = String.join("&", filterParts);
+
+        if (!filterString.isEmpty())
+            filterString = String.format("?%s", filterString);
+
+        return filterString;
+    }
+
+    public String getPath(String id, String parentId, String action, Map<String, String> filters) {
         List<String> pathParts = new ArrayList<>();
 
         if (parentId != null && !parentId.isEmpty()) {
-            boolean parentCollectionAdded = addIfNotBlank(pathParts, getParentCollection());
-
-            if (parentCollectionAdded)
-                addIfNotBlank(pathParts, parentId);
+            addIfNotBlank(pathParts, getParentCollection());
+            addIfNotBlank(pathParts, parentId);
         }
 
         addIfNotBlank(pathParts, getCollection());
@@ -145,6 +157,8 @@ public class Metadata {
 
         addIfNotBlank(pathParts, action);
 
-        return String.join("/", pathParts);
+        String url = String.join("/", pathParts);
+
+        return url + (filters != null ? resolveFilters(filters) : "");
     }
 }
