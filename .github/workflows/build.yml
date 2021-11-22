@@ -20,8 +20,12 @@ jobs:
           java-version: 8
           architecture: x64
       - name: Build and Test
+        env:
+          ApiUrl=${{ secrets.API_URL }}
+          VendorToken=${{ secrets.VENDOR_TOKEN }}
+          DistributorToken=${{ secrets.DIST_TOKEN }}
         run: |
-          mvn --no-transfer-progress --batch-mode clean install -DApiUrl='${{ secrets.API_URL }}' -DVendorToken='${{ secrets.VENDOR_TOKEN }}' -DDistributorToken='${{ secrets.DIST_TOKEN }}'
+          mvn --no-transfer-progress --batch-mode clean install
       - name: Set up JDK 11
         uses: joschi/setup-jdk@v2
         with:
