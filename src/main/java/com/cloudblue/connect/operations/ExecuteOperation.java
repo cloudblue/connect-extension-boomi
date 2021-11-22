@@ -135,7 +135,7 @@ public class ExecuteOperation extends RestOperation {
 
             return builder.build();
 
-        } else if (data.getDataSize() <= 0L) {
+        } else if (data.getDataSize() <= 0L || !getActionMetadata().isIncludePayload()) {
             return null;
         } else {
             return new RepeatableInputStreamEntity(

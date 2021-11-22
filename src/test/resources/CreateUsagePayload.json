@@ -1,0 +1,11 @@
+{
+  "name":"Usage Report for current month",
+  "external_id":"EXT-000-000",
+  "contract":{
+    "id":"CRD-08072-51679-98510"
+  },
+  "product":{
+    "id":"PRD-838-787-106"
+  },
+  "description":"Test Usage Report"
+}
