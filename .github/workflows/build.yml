@@ -21,7 +21,7 @@ jobs:
           architecture: x64
       - name: Build and Test
         run: |
-          mvn --no-transfer-progress --batch-mode clean install
+          mvn --no-transfer-progress --batch-mode clean install -DApiUrl='${{ secrets.API_URL }}' -DVendorToken='${{ secrets.VENDOR_TOKEN }}' -DDistributorToken='${{ secrets.DIST_TOKEN }}'
       - name: Set up JDK 11
         uses: joschi/setup-jdk@v2
         with:
