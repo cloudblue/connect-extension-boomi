@@ -21,9 +21,9 @@ jobs:
           architecture: x64
       - name: Build and Test
         env:
-          ApiUrl=${{ secrets.API_URL }}
-          VendorToken=${{ secrets.VENDOR_TOKEN }}
-          DistributorToken=${{ secrets.DIST_TOKEN }}
+          ApiUrl: ${{ secrets.API_URL }}
+          VendorToken: ${{ secrets.VENDOR_TOKEN }}
+          DistributorToken: ${{ secrets.DIST_TOKEN }}
         run: |
           mvn --no-transfer-progress --batch-mode clean install
       - name: Set up JDK 11
