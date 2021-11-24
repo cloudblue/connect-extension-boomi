@@ -2,8 +2,7 @@ name: Release a new version of CloudBlue Connect Dell Boomi Extension
 on:
   release:
     types:
-      - created
-      - edited
+      - published
 
 jobs:
   release:
