@@ -2,7 +2,7 @@ name: Release a new version of CloudBlue Connect Dell Boomi Extension
 on:
   release:
     types:
-      - published
+      - created
 
 jobs:
   release:
@@ -61,8 +61,18 @@ jobs:
           files: target/*--car.zip src/main/resources/connector-descriptor.xml
           dest: release.zip
 
-      - name: Upload Release
-        uses: ncipollo/release-action@v1
+      - name: Get release
+        id: get_release
+        uses: bruceadams/get-release@v1.2.3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Upload release binary
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
-          artifacts: "release.zip"
-          token: ${{ secrets.GITHUB_TOKEN }}
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: release.zip
+          asset_name: binary
+          asset_content_type: application/octet-stream
