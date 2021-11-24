@@ -56,9 +56,13 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+      - name: Set Release version env variable
+        run: |
+          echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
       - uses: papeloto/action-zip@v1
         with:
-          files: target/*--car.zip src/main/resources/connector-descriptor.xml
+          files: target/connect-extension-boomi-${{ env.RELEASE_VERSION }}--car.zip src/main/resources/connector-descriptor.xml
           dest: release.zip
 
       - name: Get release
@@ -74,5 +78,5 @@ jobs:
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
           asset_path: release.zip
-          asset_name: binary
+          asset_name: "Release Binaries.zip"
           asset_content_type: application/octet-stream
