@@ -1,0 +1,69 @@
+name: Release a new version of CloudBlue Connect Dell Boomi Extension
+on:
+  release:
+    types:
+      - created
+      - edited
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: joschi/setup-jdk@v2
+        with:
+          java-version: 8
+          architecture: x64
+
+      - name: Build and Test
+        env:
+          ApiUrl: ${{ secrets.API_URL }}
+          VendorToken: ${{ secrets.VENDOR_TOKEN }}
+          DistributorToken: ${{ secrets.DIST_TOKEN }}
+        run: |
+          mvn --no-transfer-progress --batch-mode clean install
+
+      - name: Set up JDK 11
+        uses: joschi/setup-jdk@v2
+        with:
+          java-version: 11
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn sonar:sonar
+
+      - name: SonarQube Quality Gate check
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
+        with:
+          scanMetadataReportFile: target/sonar/report-task.txt
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - uses: papeloto/action-zip@v1
+        with:
+          files: target/*--car.zip src/main/resources/connector-descriptor.xml
+          dest: release.zip
+
+      - name: Upload Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "release.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
