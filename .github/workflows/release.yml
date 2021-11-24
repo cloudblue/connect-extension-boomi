@@ -78,5 +78,5 @@ jobs:
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
           asset_path: release.zip
-          asset_name: "Release Binaries.zip"
+          asset_name: "Release_binaries.zip"
           asset_content_type: application/octet-stream
