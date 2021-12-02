@@ -350,5 +350,70 @@
     "version" : {
       "type" : "integer"
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "events.created.at" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "external_id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "external_uid" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "hub.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "hub.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "owner.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "owner.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "parent.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "parent.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "parent.parent.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "scopes" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "type" : {
+          "filterable": true,
+          "sortable": false
+        }
+      }
+    }
   }
 }

@@ -1019,5 +1019,86 @@
         }
       }
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "account.company_name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "account.external_id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "account.external_uid" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "account.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "connection.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "connection.type" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "contract.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "created" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "marketplace.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "marketplace.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "product.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "product.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "params.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "params.value" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "status": {
+          "filterable": true,
+          "sortable": false
+        },
+        "tier_level" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "updated" : {
+          "filterable": true,
+          "sortable": true
+        }
+      }
+    }
   }
 }

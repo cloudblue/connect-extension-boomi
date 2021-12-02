@@ -361,5 +361,142 @@
       "type" : "string",
       "enum" : [ "technical", "business" ]
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "description" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "events.closed.at" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.closed.by.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.closed.by.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.created.at" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.created.by.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.created.by.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.inquiring.at" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.inquiring.by.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.inquiring.by.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.pending.at" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.pending.by.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.pending.by.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.resolved.at" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.resolved.by.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.resolved.by.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.updated.at" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.updated.by.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.updated.by.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "issuer.account.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "issuer.account.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "issuer.agent.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "issuer.agent.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "priority" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "receiver.account.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "receiver.account.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "receiver.agent.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "receiver.agent.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "state" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "subject" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "type" : {
+          "filterable": true,
+          "sortable": true
+        }
+      }
+    }
   }
 }

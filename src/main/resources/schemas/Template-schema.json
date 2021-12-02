@@ -68,5 +68,22 @@
       "type" : "string",
       "enum" : [ "inquire", "fulfillment" ]
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "scope" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "type" : {
+          "filterable": true,
+          "sortable": false
+        }
+      }
+    }
   }
 }

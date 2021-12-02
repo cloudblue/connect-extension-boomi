@@ -2063,5 +2063,106 @@
     "type" : {
       "type" : "string"
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "assignee.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "assignee.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "configuration.account.external_id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "configuration.account.external_uid" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "configuration.account.hub.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "configuration.account.hub.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "configuration.account.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "configuration.connection.type" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "configuration.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "configuration.marketplace.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "configuration.marketplace.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "configuration.product.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "configuration.product.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "configuration.tier_level" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "created" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "environment": {
+          "filterable": true,
+          "sortable": false
+        },
+        "id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "params.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "params.value" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "status" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "type" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "unassigned" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "updated" : {
+          "filterable": true,
+          "sortable": true
+        }
+      }
+    }
   }
 }

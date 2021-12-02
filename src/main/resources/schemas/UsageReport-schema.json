@@ -387,5 +387,86 @@
         }
       }
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "contract.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "contract.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "created.at" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "distribution_contract_id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "environment" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "external_id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "marketplace.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "marketplace.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "product.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "product.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "provider.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "provider.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "schema" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "status" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "vendor.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "vendor.name" : {
+          "filterable": true,
+          "sortable": true
+        }
+      }
+    }
   }
 }

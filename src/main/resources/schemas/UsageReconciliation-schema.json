@@ -562,5 +562,30 @@
         }
       }
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "binding.hub.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "partusagefile.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "partusagefile.provider.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "usagefile.id" : {
+          "filterable": true,
+          "sortable": true
+        }
+      }
+    }
   }
 }

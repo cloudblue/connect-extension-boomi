@@ -125,5 +125,62 @@
       "type" : "string",
       "enum" : [ "text", "dropdown", "password", "email", "checkbox", "subdomain", "domain", "phone", "url", "choice", "address", "object" ]
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "constraints.hidden" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "constraints.reconciliation" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "constraints.required" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "constraints.shared" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "constraints.unique" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "name" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "phase" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "position" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "scope" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "title" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "type" : {
+          "filterable": true,
+          "sortable": false
+        }
+      }
+    }
   }
 }

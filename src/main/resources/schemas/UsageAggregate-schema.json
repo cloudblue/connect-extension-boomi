@@ -289,5 +289,34 @@
         }
       }
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "asset.external_uid" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "asset.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "item.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "item.local_id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "item.type" : {
+          "filterable": true,
+          "sortable": false
+        }
+      }
+    }
   }
 }
