@@ -48,6 +48,11 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn sonar:sonar
 
+      - name: Wait sonar to process report
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '60s'
+
       - name: SonarQube Quality Gate check
         uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
