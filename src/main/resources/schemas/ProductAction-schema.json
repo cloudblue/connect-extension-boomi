@@ -68,5 +68,18 @@
       "type" : "string",
       "const" : "button"
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "scope" : {
+          "filterable": true,
+          "sortable": false
+        }
+      }
+    }
   }
 }

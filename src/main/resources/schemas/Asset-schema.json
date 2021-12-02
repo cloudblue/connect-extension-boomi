@@ -1358,5 +1358,114 @@
         }
       }
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "connection.hub.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "connection.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "connection.provider.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "connection.provider.name" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "connection.type" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "connection.vendor.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "connection.vendor.name" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "contract.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "external_id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "external_uid" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "marketplace.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "marketplace.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "params.value" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "product.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "product.title" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "status" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "tiers.customer.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "tiers.customer.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "tiers.tier1.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "tiers.tier2.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "assignee.email" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "tiers.customer.external_id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "tiers.customer.external_uid" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "updated" : {
+          "filterable": true,
+          "sortable": true
+        }
+      }
+    }
   }
 }

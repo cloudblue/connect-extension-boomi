@@ -275,5 +275,42 @@
     "type" : {
       "type" : "string"
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "created" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.created.at" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.created.by.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "events.updated.at" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "text" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "type" : {
+          "filterable": true,
+          "sortable": false
+        }
+      }
+    }
   }
 }

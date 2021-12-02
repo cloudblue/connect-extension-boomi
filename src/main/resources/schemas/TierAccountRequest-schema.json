@@ -639,5 +639,62 @@
         }
       }
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "account.external_id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "account.external_uid" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "account.hub.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "account.hub.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "account.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "account.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "account.version" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "events.created.at" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "product.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "product.name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "status" : {
+          "filterable": true,
+          "sortable": true
+        }
+      }
+    }
   }
 }

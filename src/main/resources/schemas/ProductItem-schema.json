@@ -178,5 +178,102 @@
         }
       }
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "app.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "commitment.count" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "description.value" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "display_name" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "dynamic" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "events.created.at" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "events.saleended.at" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "events.updated.at" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "frozen" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "item_type" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "local_id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "mpn" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "name" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "period" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "replacement.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "status" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "type" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "unit.title" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "usage_data_type" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "verbose_id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "version" : {
+          "filterable": true,
+          "sortable": false
+        }
+      }
+    }
   }
 }

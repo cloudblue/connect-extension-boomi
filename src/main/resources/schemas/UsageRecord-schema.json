@@ -136,5 +136,66 @@
         }
       }
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "asset.external_id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "asset.external_uid" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "asset.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "created_time" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "start_date" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "end_date" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "hub.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "item.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "part_usage_file__hub__id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "product.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "status" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "usagefile.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "usagefile.schema" : {
+          "filterable": true,
+          "sortable": false
+        }
+      }
+    }
   }
 }

@@ -162,5 +162,54 @@
     "value" : {
       "type" : "string"
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "item.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "item.name" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "marketplace.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "marketplace.name" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "parameter.constraints.required" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "parameter.constraints.shared" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "parameter.id" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "parameter.scope" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "parameter.title" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "value" : {
+          "filterable": true,
+          "sortable": true
+        }
+      }
+    }
   }
 }

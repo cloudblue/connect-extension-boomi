@@ -528,5 +528,70 @@
         }
       }
     }
+  },
+  "annotations" : {
+    "boomi_fieldSpec" : {
+      "ignoreForSelection" : true,
+      "ignoreForSort" : true,
+      "ignoreForFilters": true,
+      "fields" : {
+        "category.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "events.created.at" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "groups.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "name" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "owner.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "owner.name" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "replacement.id" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "sourcing.marketplaces" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "status" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "visibility.catalog" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "visibility.listing" : {
+          "filterable": true,
+          "sortable": false
+        },
+        "visibility.owner" : {
+          "filterable": true,
+          "sortable": true
+        },
+        "visibility.syndication" : {
+          "filterable": true,
+          "sortable": false
+        }
+      }
+    }
   }
 }
