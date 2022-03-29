@@ -265,8 +265,11 @@ public class UsageOperationIntegrationTest extends AuthenticatedIntegrationTest 
 
     @Test
     public void test6AcceptOperation() throws IOException {
+        test2CreateOperation();
         test3UploadOperation();
         test4SubmitOperation();
+
+        waitTillStatus("pending");
 
         ConnectConnector connector = new ConnectConnector();
         ConnectorTester tester = new ConnectorTester(connector);
