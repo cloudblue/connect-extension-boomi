@@ -11,9 +11,11 @@ import com.boomi.common.apache.http.response.HttpResult;
 import com.boomi.common.rest.RestClient;
 import com.boomi.connector.api.*;
 import com.boomi.connector.util.BaseQueryOperation;
+import com.boomi.util.IOUtil;
 import com.boomi.util.URLUtil;
 import com.boomi.util.json.splitter.JsonRootArraySplitter;
 
+import com.boomi.util.json.splitter.JsonSplitter;
 import com.cloudblue.connect.ConnectConnection;
 import com.cloudblue.connect.browser.metadata.Metadata;
 import com.cloudblue.connect.browser.metadata.MetadataUtil;
@@ -22,6 +24,7 @@ import com.cloudblue.connect.utils.FilterUtil;
 
 import org.apache.http.client.methods.RequestBuilder;
 
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -47,13 +50,23 @@ public class QueryOperation extends BaseQueryOperation {
                 throw new ConnectorException("unable to execute request");
             }
 
+            JsonSplitter splitter = null;
+
             for (HttpResult result : results) {
                 for (Payload payload : result.getPayloads()) {
-                    ResponseUtil.addSplitSuccess(
-                            operationResponse,
-                            input,
-                            result.getStatus().getStatusCode(),
-                            new JsonRootArraySplitter(payload.readFrom()));
+                    InputStream outputData = payload.readFrom();
+                    try {
+                        splitter = new JsonRootArraySplitter(outputData);
+
+                        ResponseUtil.addSplitSuccess(
+                                operationResponse,
+                                input,
+                                result.getStatus().getStatusCode(),
+                                splitter
+                        );
+                    } finally {
+                        IOUtil.closeQuietly(outputData, splitter);
+                    }
                 }
             }
         } catch (Exception e) {
