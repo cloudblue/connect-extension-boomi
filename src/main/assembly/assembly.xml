@@ -21,6 +21,7 @@
                 <include>connector-config.xml</include>
                 <include>connector-descriptor.xml</include>
                 <include>connector.xml</include>
+                <include>com.boomi.Overrides</include>
                 <include>schemas/*</include>
             </includes>
             <directory>target/classes</directory>
