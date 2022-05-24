@@ -349,6 +349,7 @@ public class MetadataUtil {
                         .addActionMetaData(Action.DOWNLOAD, new ActionMetadata()
                                 .includePayload(false))
                         .addActionMetaData(Action.UPDATE, new ActionMetadata()
+                                .customAction(false)
                                 .input(UPDATE_CHUNK_FILE_SCHEMA)));
 
         METADATA_STORE.put(ResourceType.USAGE_RECORD,
@@ -452,6 +453,7 @@ public class MetadataUtil {
                         .addActionMetaData(Action.CLOSE, new ActionMetadata()
                                 .input(CLOSE_CASE_SCHEMA))
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
+                                .customAction(false)
                                 .input(NEW_CASE_SCHEMA)));
 
         METADATA_STORE.put(ResourceType.ASSET_USAGE_AGGREGATE,
@@ -473,6 +475,7 @@ public class MetadataUtil {
                         .schema(CONVERSATION_MESSAGES_SCHEMA)
                         .includeListAction()
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
+                                .customAction(false)
                                 .input(NEW_CONVERSATION_MESSAGES_SCHEMA)));
 
         METADATA_STORE.put(ResourceType.PRODUCT_ACTION_LINK,
