@@ -83,7 +83,7 @@
     <operation types="EXECUTE" customTypeId="UPDATE" customTypeLabel="Update Resource">
         <field id="httpMethod" label="HTTP Method" type="string" overrideable="false">
             <defaultValue>PUT</defaultValue>
-            <allowedValue label="POST">
+            <allowedValue label="PUT">
                 <value>PUT</value>
             </allowedValue>
         </field>
