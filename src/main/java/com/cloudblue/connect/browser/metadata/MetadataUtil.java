@@ -114,6 +114,7 @@ public class MetadataUtil {
                         .includeListAction()
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
                                 .customAction(false)
+                                .collectionAction(true)
                                 .input(NEW_TIER_ACCOUNT_SCHEMA))
                         .addActionMetaData(Action.UPDATE, new ActionMetadata()
                                 .customAction(false)
@@ -139,6 +140,7 @@ public class MetadataUtil {
                         .includeListAction()
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
                                 .customAction(false)
+                                .collectionAction(true)
                                 .input(NEW_TIER_ACCOUNT_REQUEST_SCHEMA))
                         .addActionMetaData(Action.ACCEPT, new ActionMetadata()
                                 .includePayload(false))
@@ -154,6 +156,7 @@ public class MetadataUtil {
                         .includeListAction()
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
                                 .customAction(false)
+                                .collectionAction(true)
                                 .input(NEW_TIER_ACCOUNT_CONFIG_REQUEST_SCHEMA))
                         .addActionMetaData(Action.UPDATE, new ActionMetadata()
                                 .customAction(false)
@@ -384,6 +387,7 @@ public class MetadataUtil {
                                 .input(UPDATE_USAGE_REPORT_SCHEMA))
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
                                 .customAction(false)
+                                .collectionAction(true)
                                 .input(NEW_USAGE_REPORT_SCHEMA))
                         .addActionMetaData(Action.CLOSE, new ActionMetadata()
                                 .includePayload(false))
@@ -453,6 +457,7 @@ public class MetadataUtil {
                         .addActionMetaData(Action.CLOSE, new ActionMetadata()
                                 .input(CLOSE_CASE_SCHEMA))
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
+                                .collectionAction(true)
                                 .customAction(false)
                                 .input(NEW_CASE_SCHEMA)));
 
@@ -476,6 +481,7 @@ public class MetadataUtil {
                         .includeListAction()
                         .addActionMetaData(Action.CREATE, new ActionMetadata()
                                 .customAction(false)
+                                .collectionAction(true)
                                 .input(NEW_CONVERSATION_MESSAGES_SCHEMA)));
 
         METADATA_STORE.put(ResourceType.PRODUCT_ACTION_LINK,
