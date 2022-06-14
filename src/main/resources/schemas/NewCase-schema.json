@@ -6,31 +6,19 @@
       "type" : "object",
       "properties" : {
         "id" : {
-          "type" : "string",
-          "properties": {
-            "string": {"type": "string"}
-          }
+          "type" : "string"
         }
-      }
+      },
+      "required": ["id"]
     },
     "subject" : {
-      "type" : "string",
-      "required": ["string"],
-      "properties": {
-        "string": {"type": "string"}
-      }
+      "type" : "string"
     },
     "description" : {
       "type" : "string"
     },
     "priority" : {
-      "type" : "integer",
-      "required": ["integer"],
-      "properties": {
-        "integer": {
-          "type": "integer"
-        }
-      }
+      "type" : "integer"
     },
     "type" : {
       "type" : "string",
@@ -43,15 +31,13 @@
           "type" : "object",
           "properties" : {
             "id" : {
-              "type" : "string",
-              "required": ["string"],
-              "properties": {
-                "string": {"type": "string"}
-              }
+              "type" : "string"
             }
-          }
+          },
+          "required": ["id"]
         }
-      }
+      },
+      "required": ["account"]
     },
     "issuer" : {
       "type" : "object",
@@ -62,16 +48,14 @@
             "type" : "object",
             "properties" : {
               "id" : {
-                "type" : "string",
-                "required": ["string"],
-                "properties": {
-                  "string": {"type": "string"}
-                }
+                "type" : "string"
               }
-            }
+            },
+            "required": ["id"]
           }
         }
       }
     }
-  }
+  },
+  "required": ["subject", "description", "priority", "type", "receiver", "issuer"]
 }
