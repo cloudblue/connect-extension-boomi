@@ -8,7 +8,7 @@
 
     <groupId>com.cloudblue</groupId>
     <artifactId>connect-extension-boomi</artifactId>
-    <version>24.0.1</version>
+    <version>24.0.8</version>
 
     <repositories>
         <repository>

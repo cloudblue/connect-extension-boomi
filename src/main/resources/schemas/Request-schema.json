@@ -1526,11 +1526,11 @@
           "filterable": true,
           "sortable": false
         },
-        "product.id" : {
+        "asset.product.id" : {
           "filterable": true,
           "sortable": false
         },
-        "product.name" : {
+        "asset.product.name" : {
           "filterable": true,
           "sortable": true
         },
